@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'marketplace',
+        'NAME': 'toeic',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
