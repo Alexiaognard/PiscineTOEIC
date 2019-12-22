@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class="row">
+
+
+    <div class="col s12 m5">
+        <h3> {{ utilisateur.first_name }} {{utilisateur.last_name }} </h3>
+        <ul>
+            <li>Email : {{ utilisateur.email }}</li>
+            <li>Classe : {{ etu.classeEtu }}</li>
+        </ul>
+    </div>
+
+
+</div>
+
+{% endblock %}

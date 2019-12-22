@@ -14,12 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-
+from django.contrib import admin
 from django.urls import path
 from toeic import views
 from django.conf import settings
 
 
 urlpatterns = [
-    path('', views.test, name='test')
+    path('admin', admin.site.urls),
+    path('', views.homepage, name='homepage'),
+    path('login', views.login_user, name='login'),
+    path('logout', views.logout_user, name='logout'),
+    path('signup/etudiant', views.signup_etu, name='signupEtu'),
+    path('dashboard', views.dashboard, name='dashboard'),
 ]
