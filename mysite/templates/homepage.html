@@ -2,9 +2,45 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<div>
-    Welcome to our Website !!
-</div>
 
+{% if user.is_authenticated %}
+<div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Mon Compte</h5>
+                      {% if request.session.estEtu %}
+                        <a href="{% url 'dashboardEtu' %}" class="card-link">Voir mon compte</a>
+                      {% else %}
+                    <a href="{% url 'dashboardProf' %}" class="card-link">Voir mon compte</a>
+                      {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Faire un sujet</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Faire sujet</a>
+                 </div>
+
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Statistiques</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link">Voir mes stats</a>
+                 </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 
 {% endblock %}

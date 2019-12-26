@@ -10,7 +10,9 @@
         <h3> {{ utilisateur.first_name }} {{utilisateur.last_name }} </h3>
         <ul>
             <li>Email : {{ utilisateur.email }}</li>
-            <li>Classe : {{ etu.classeEtu }}</li>
+            {% if request.session.estEtu %}
+            <li>Classe : {{ user.classeEtu.nomClasse }}</li>
+            {% endif %}
         </ul>
     </div>
 

@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block title %}Création d'un compte Professeur{% endblock %}
+{% block content %}
+<div class="page">
+  <div class = "formulaire">
+      <form method="post" action="">
+      {% csrf_token %}
+          {% for field in formProf %}
+              {% for error in field.errors %}
+              <div class="textError">
+                <p>{{ error }}</p>
+              </div>
+              {% endfor %}
+              <div class = "case">
+                {{ field.label_tag }}
+                {{ field }}
+              {% if field.help_text %}
+                <small>{{ field.help_text }}</small>
+              {% endif %}
+              </div>
+          {% endfor %}
+          <div class="boutonForm">
+            <button class="btn purple" type="submit" >Créer un compte</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+{% endblock %}

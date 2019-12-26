@@ -1,4 +1,4 @@
-from django.shortcuts import render
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, permission_required
@@ -24,8 +24,9 @@ def signup_etu(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password) #Authentification de l'utilisateur
             Utilisateur = User.objects.get(username=username)
-            #groupe_etu = Group.objects.get(id='2')  # On ajoute l'utilisateur au groupe étudiant ici (id groupe étudiant = 2 )
-            etu = Etudiant(numEtu=Utilisateur, mailEtu=form.cleaned_data.get('email'), classeEtu=form.cleaned_data.get('classeEtu'))
+            classEtu = Classe(nomClasse=form.cleaned_data.get('classeEtu'),promoClasse=form.cleaned_data.get('promoEtu'))
+            classEtu.save()
+            etu = Etudiant(numEtu=Utilisateur, mailEtu=form.cleaned_data.get('email'), classeEtu=classEtu)
             etu.save()  # Sauvegarde de l'étudiant
             login(request, user) #Connexion au site
             estEtu = True
@@ -36,6 +37,25 @@ def signup_etu(request):
     return render(request, 'signup_etu.html', {'formEtu': form})
 
 
+#Creation d'un compte prof
+def signup_prof(request):
+    if request.method == 'POST':
+        form = SignUpFormProf(request.POST)
+        if form.is_valid():
+            form.save() #Sauvegarde/Creation d'un utilisateur de base
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password) #Authentification de l'utilisateur
+            Utilisateur = User.objects.get(username=username)
+            prof = Professeur(numProf=Utilisateur, mailProf=form.cleaned_data.get('email'))
+            prof.save()  # Sauvegarde du professeur
+            login(request, user) #Connexion au site
+            estEtu = False
+            request.session['estEtu'] = estEtu  # On mémorise le fait que c'est un professeur en session
+            return redirect('homepage')
+    else:
+        form = SignUpFormProf(request.POST)
+    return render(request, 'signup_prof.html', {'formProf': form})
 #---------------- Vue de connexion  ----------------
 
 
@@ -49,22 +69,12 @@ def login_user(request):
             user = authenticate(username=username, password=raw_password)
             if user:
                 login(request,user)
-                #groupe = User.objects.filter(groups__name='etu', id=user.id) #On cherche si notre utilisateur est un étudiant
-                #if not groupe: #Si aucun objet n'est retourné, il n'est pas étudiant donc prof
-                    #estEtu = False
-                #else:           #Sinon, c'est un étudiant
-                    #estEtu =True
-                #request.session['estEtu'] = estEtu #On mémorise cette information
-
-                #if estEtu:
-                  #  return redirect('homepage')
-                #else:
                 return redirect('homepage')
             else:
                 error=True
                 #ErrorMessage = "Username ou mot de passe incorrect"
     else:
-        form= SignInForm()
+        form = SignInForm()
     return render(request, 'signin.html', locals())
 
 #---------------- Vue de déconnexion  ----------------
@@ -74,8 +84,20 @@ def logout_user(request):
 
 
 #---------------- Vue mon compte ---------------------
-def dashboard(request):
+def monCompte_etu(request):
     utilisateur = User.objects.get(id=request.user.id)
-    etu = Etudiant.objects.get(numEtu=request.user.id)
+    user = Etudiant.objects.get(numEtu=request.user.id)
     return render(request, 'dashboard.html', locals())
+
+def monCompte_prof(request):
+    utilisateur = User.objects.get(id=request.user.id)
+    user = Professeur.objects.get(numProf=request.user.id)
+    return render(request, 'dashboard.html', locals())
+
+
+
+
+
+
+
 
