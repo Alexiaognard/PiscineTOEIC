@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="recapitulation">
+    <div class="collection with-header">
+        <h3> Nom Sujet : {{ sub.nomSujet }} </h3><br>
+        <h3>Mdp Sujet : {{sub.mdpSujet }}<h3>
+        <ul>
+            <li>REPONSES</li>
+            {% for field in questions %}
+            <li>
+              {{ field.nomQuestion }} : {{ field.reponseQuestion }}
+
+            </li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+</div>
+
+{% endblock %}

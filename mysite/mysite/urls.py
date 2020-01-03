@@ -29,4 +29,11 @@ urlpatterns = [
     path('monCompte', views.monCompte_etu, name='dashboardEtu'),
     path('dashboard', views.monCompte_prof, name='dashboardProf'),
     path('signup/professeur', views.signup_prof, name='signupProf'),
+    path('create/subject_prof', views.create_subject_prof, name='create_subject_prof'),
+    path('create/subject/<int:idSujet>', views.create_subject, name='create_subject'),
+    path('read/subject_prof/<int:idSujet>', views.read_subject_prof, name='read_subject_prof'),
+    path('read/subject/<int:idSujet>', views.read_subject, name='read_subject'),
+    path('create/subject_etu/', views.create_subject_etu, name='create_subject_etu'),
+    path('create/subject_etu/<int:idSujet>', views.make_subject_etu, name='make_subject_etu'),
+    path('read/subject_etu/<int:idSujet>', views.read_subject_etu, name='read_subject_etu'),
 ]

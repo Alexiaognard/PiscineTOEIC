@@ -50,16 +50,25 @@ class CreateSubjectForm(forms.Form):
         model = Sujet
         fields = ('nomSujet','mdpSujet')
 
+#formulaire de création d'un sujet
+class ConnectionSubjectForm(forms.Form):
+    numSujet = forms.CharField(label="Num")
+    mdpSujet = forms.CharField(label="Password")
+    class Meta:
+        model = Sujet
+        fields = ('numSujet','mdpSujet')
 QUESTION_CHOICES = [
-        (1, 'A'),
-        (2, 'B'),
-        (3, 'C'),
-        (4, 'D'),
-        (5, 'Sans réponse'),
-
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D','D'),
     ]
 
-class RemplirSujetProfForm(forms.Form):
+
+
+
+
+class RemplirSujetForm(forms.Form):
 
     Q1 = forms.ChoiceField(choices=QUESTION_CHOICES)
     Q2 = forms.ChoiceField(choices=QUESTION_CHOICES)

@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="recapitulation">
+    <div class="collection with-header">
+        <h3> Numéro de Sujet : {{ sub.numSujet }} </h3>
+        <ul>
+            <li>Nom Sujet : {{sub.nomSujet}}</li>
+            <li>Mdp Sujet : {{sub.mdpSujet }}</li>
+            <a href="{% url 'make_subject_etu' sub.numSujet %}" class="btn btn-primary">Commencer le sujet</a>
+
+
+
+        </ul>
+    </div>
+</div>
+
+{% endblock %}

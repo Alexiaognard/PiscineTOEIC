@@ -36,12 +36,12 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="{% url 'homepage' %}">Accueil</a>
                     {% if request.session.estEtu %}
-                  <a class="nav-item nav-link" href="{% url 'dashboardEtu' %}">Mon Compte</a>
-                  <a class="nav-item nav-link" href="#">Faire un sujet TOEIC</a>
+                     <a class="nav-item nav-link" href="{% url 'dashboardEtu' %}">Mon Compte</a>
+                     <a class="nav-item nav-link" href="#">Faire un sujet TOEIC</a>
 
                     {% else %}
                     <a class="nav-item nav-link" href="{% url 'dashboardProf' %}">Mon Compte</a>
-                    <a class="nav-item nav-link" href="{% url 'create_subject' %}">Proposer un sujet TOEIC</a>
+                    <a class="nav-item nav-link" href="{% url 'create_subject_prof' %}">Proposer un sujet TOEIC</a>
                     {% endif %}
 
                     <a class="nav-item nav-link" href="#">Statistiques</a>

@@ -12,6 +12,7 @@
             <li>Email : {{ utilisateur.email }}</li>
             {% if request.session.estEtu %}
             <li>Classe : {{ user.classeEtu.nomClasse }}</li>
+            <li>Promo : {{ user.classeEtu.promoClasse }}</li>
             {% endif %}
         </ul>
     </div>

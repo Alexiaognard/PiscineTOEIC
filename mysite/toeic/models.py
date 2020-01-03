@@ -136,26 +136,20 @@ class Proposer(models.Model):
 
 
 QUESTION_CHOICES = [
-        (1, 'A'),
-        (2, 'B'),
-        (3, 'C'),
-        (4, 'D'),
-        (5, 'Sans réponse'),
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D', 'D'),
 
     ]
 
-class ChoixReponse(models.IntegerChoices):
-    A = 1
-    B = 2
-    C = 3
-    D = 4
 
 
 class Question(models.Model):
 
     numQuestion = models.AutoField(primary_key=True)
     nomQuestion = models.CharField(blank=True, max_length=15)
-    reponseQuestion = models.IntegerField(choices=ChoixReponse.choices)
+    reponseQuestion = models.CharField(max_length=1,choices=QUESTION_CHOICES)
     numSousPartie = models.ForeignKey(SousPartie,on_delete=models.CASCADE, db_column='numSousPartie')
 
     class Meta:
@@ -170,3 +164,9 @@ class Repondre(models.Model):
         db_table='repondre'
 
 
+class FaireSujet(models.Model):
+    numSujet = models.ForeignKey(Sujet, on_delete=models.CASCADE, db_column='numSujet')
+    numEtu = models.ForeignKey(Etudiant, on_delete=models.CASCADE, db_column='numEtu')
+
+    class Meta :
+        db_table = 'fairesujet'

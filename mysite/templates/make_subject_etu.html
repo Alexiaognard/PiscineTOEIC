@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+
+{% block title %}Creation Sujet{% endblock %}
+{% block content %}
+
+<div class="page">
+  <div class = "formulaire">
+    <div class="blocCentrer">
+      <form method="post" action="">
+      {% csrf_token %}
+      {% for field in form %}
+          <div>
+          {{ field.label_tag }}<br>
+          {{ field }}
+          </div>
+      {% endfor %}
+      <div class="boutonForm">
+        <button class="btn green" type="submit">Valider le sujet</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
