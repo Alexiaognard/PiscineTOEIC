@@ -175,3 +175,9 @@ class FaireSujet(models.Model):
 
     class Meta :
         db_table = 'fairesujet'
+
+class Corriger(models.Model):
+    numSujetEtu = models.ForeignKey(Sujet, on_delete=models.CASCADE, related_name='numSujetEtu')
+    numSujetProf = models.ForeignKey(Sujet, on_delete=models.CASCADE, related_name='numSujetProf')
+    class Meta:
+        db_table ='corriger'

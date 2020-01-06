@@ -26,8 +26,20 @@
                       <h5 class="card-title">Faire un sujet</h5>
                         <a href="{% url 'create_subject_etu' %}" class="card-link">Faire un sujet</a>
                       {% else %}
-                      <h5 class="card-title">Faire un sujet</h5>
-                        <a href="{% url 'create_subject_prof' %}" class="card-link">Faire un sujet</a>
+                      <h5 class="card-title">Créer un sujet</h5>
+                        <a href="{% url 'create_subject_prof' %}" class="card-link">Créer un sujet</a>
+                      {% endif %}
+                 </div>
+
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      {% if not request.session.estEtu %}
+                      <h5 class="card-title">Créer une session</h5>
+                        <a href="{% url 'create_session' %}" class="card-link">Créer une session</a>
+
                       {% endif %}
                  </div>
 

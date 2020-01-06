@@ -24,3 +24,15 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+.nav-wrapper form {
+	display: flex;
+}
+
+.formulaire {
+  justify-content:center;
+  display: flex;
+  border-radius : 50px;
+  border-color : black;
+  border-width : 5px;
+}

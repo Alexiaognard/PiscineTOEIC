@@ -5,8 +5,10 @@
 <div class="recapitulation">
     <div class="collection with-header">
         <h3> Nom Sujet : {{ sub.nomSujet }} </h3><br>
-        <h3>Mdp Sujet : {{sub.mdpSujet }}<h3>
+        <h3>Mdp Sujet : {{sub.mdpSujet }}<h3><br>
+
         <ul>
+            <li>Num Sujet : {{sub.numSujet}}</li>
             <li>REPONSES</li>
             {% for field in questions %}
             <li>
@@ -16,6 +18,11 @@
             {% endfor %}
 
         </ul>
+            {% if not request.session.estEtu %}
+            <a href="{% url 'create_session' %}" >Créer une session</a>
+            {% else %}
+            <a href="{% url 'corriger_sujet' sub.numSujet">Corriger le sujet</a>
+            {% endif %}
 
     </div>
 </div>

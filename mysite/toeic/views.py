@@ -169,11 +169,11 @@ def create_subject(request,idSujet):
                 sp3.save()
                 sp4 = SousPartie(nomSousPartie="Part 4", numPartie=p1)
                 sp4.save()
-                sp5 = SousPartie(nomSousPartie="Part 4", numPartie=p2)
+                sp5 = SousPartie(nomSousPartie="Part 5", numPartie=p2)
                 sp5.save()
-                sp6 = SousPartie(nomSousPartie="Part 4", numPartie=p2)
+                sp6 = SousPartie(nomSousPartie="Part 6", numPartie=p2)
                 sp6.save()
-                sp7 = SousPartie(nomSousPartie="Part 4", numPartie=p2)
+                sp7 = SousPartie(nomSousPartie="Part 7", numPartie=p2)
                 sp7.save()
 
                 pos1 = Posseder(numSousPartie=sp1,numPartie=p1)
@@ -643,7 +643,7 @@ def create_subject_etu(request):
 
 def read_subject_etu(request,idSujet):
     sub=Sujet.objects.get(numSujet=idSujet)
-    return render (request, 'read_subject_etu.html', locals())
+    return render (request, 'read_connexion_subject_etu.html', locals())
 
 def make_subject_etu(request, idSujet):
     if not request.session['estEtu']:
@@ -655,9 +655,16 @@ def make_subject_etu(request, idSujet):
 
             if form.is_valid():
 
-                sub = Sujet.objects.get(numSujet=idSujet)
-                makeSub = FaireSujet(numSujet=sub,numEtu=etu)
+                subProf = Sujet.objects.get(numSujet=idSujet)
+
+                sub = Sujet(nomSujet=subProf.nomSujet,mdpSujet=subProf.mdpSujet)
+                sub.save()
+
+                makeSub = FaireSujet(numSujet=sub, numEtu=etu)
                 makeSub.save()
+
+                corriger = Corriger(numSujetProf=subProf,numSujetEtu=sub)
+                corriger.save()
 
                 p1 = PartieSujet(nomPartie="Listening", dureePartie=50000, notePartie=0, numSujet=sub)
                 p1.save()
@@ -677,11 +684,11 @@ def make_subject_etu(request, idSujet):
                 sp3.save()
                 sp4 = SousPartie(nomSousPartie="Part 4", numPartie=p1)
                 sp4.save()
-                sp5 = SousPartie(nomSousPartie="Part 4", numPartie=p2)
+                sp5 = SousPartie(nomSousPartie="Part 5", numPartie=p2)
                 sp5.save()
-                sp6 = SousPartie(nomSousPartie="Part 4", numPartie=p2)
+                sp6 = SousPartie(nomSousPartie="Part 6", numPartie=p2)
                 sp6.save()
-                sp7 = SousPartie(nomSousPartie="Part 4", numPartie=p2)
+                sp7 = SousPartie(nomSousPartie="Part 7", numPartie=p2)
                 sp7.save()
 
                 pos1 = Posseder(numSousPartie=sp1, numPartie=p1)
@@ -1106,6 +1113,144 @@ def make_subject_etu(request, idSujet):
             form = RemplirSujetForm()
 
         return render(request, 'create_subject.html', locals())
+
+@login_required
+def read_mySubject(request,idSujet):
+    sujets = FaireSujet.objects.filter(numSujet=idSujet)
+    sub = []
+    for suj in sujets:
+        sub+=suj.numSujet
+
+    return render(request, 'read_mySubject.html', locals())
+
+def corriger_sujet(request,idSujet):
+    subEtu = Sujet.objects.get(numSujet=idSujet)
+    subs=Corriger.objects.get(numSujetEtu=subEtu)
+    subProf=subs.numSujetProf
+
+    note = 0
+    listening = 0
+    reading = 0
+
+    partieProf = PartieSujet.objects.filter(numSujet=subProf)
+    listProf = partieProf[0]
+    readProf = partieProf[1]
+    print(listProf)
+    print(readProf)
+    sp1Prof = SousPartie.objects.get(numPartie=listProf.numPartie, nomSousPartie="Part 1")
+    sp2Prof = SousPartie.objects.get(numPartie=listProf.numPartie, nomSousPartie="Part 2")
+    sp3Prof = SousPartie.objects.get(numPartie=listProf.numPartie, nomSousPartie="Part 3")
+    sp4Prof = SousPartie.objects.get(numPartie=listProf.numPartie, nomSousPartie="Part 4")
+    sp5Prof = SousPartie.objects.get(numPartie=readProf.numPartie,nomSousPartie="Part 5")
+    print(sp5Prof)
+    sp6Prof = SousPartie.objects.get(numPartie=readProf.numPartie, nomSousPartie="Part 6")
+    sp7Prof = SousPartie.objects.get(numPartie=readProf.numPartie, nomSousPartie="Part 7")
+
+    listProf=[]
+    readProf=[]
+    QuestP1 = Question.objects.filter(numSousPartie=sp1Prof)
+    for quest in QuestP1:
+        listProf += [quest]
+
+    QuestP2 = Question.objects.filter(numSousPartie=sp2Prof)
+    for quest in QuestP2:
+        listProf += [quest]
+    QuestP3 = Question.objects.filter(numSousPartie=sp3Prof)
+    for quest in QuestP3:
+        listProf += [quest]
+    QuestP4 = Question.objects.filter(numSousPartie=sp4Prof)
+    for quest in QuestP4:
+        listProf += [quest]
+
+    QuestP5 = Question.objects.filter(numSousPartie=sp5Prof)
+    for quest in QuestP5:
+        readProf += [quest]
+    QuestP6 = Question.objects.filter(numSousPartie=sp6Prof)
+    for quest in QuestP6:
+        readProf += [quest]
+    QuestP7 = Question.objects.filter(numSousPartie=sp7Prof)
+    for quest in QuestP7:
+        readProf += [quest]
+
+    partieEtu = PartieSujet.objects.filter(numSujet=subEtu.numSujet)
+    listEtu = partieEtu[0]
+    readEtu = partieEtu[1]
+    print(listEtu)
+    print(readEtu)
+
+    sp1Etu = SousPartie.objects.filter(numPartie=listEtu.numPartie, nomSousPartie="Part 1")
+    print(sp1Etu)
+    sp2Etu = SousPartie.objects.filter(numPartie=listEtu.numPartie, nomSousPartie="Part 2")
+    sp3Etu = SousPartie.objects.filter(numPartie=listEtu.numPartie, nomSousPartie="Part 3")
+    sp4Etu = SousPartie.objects.filter(numPartie=listEtu.numPartie, nomSousPartie="Part 4")
+    sp5Etu = SousPartie.objects.filter(numPartie=readEtu.numPartie, nomSousPartie="Part 5")
+    sp6Etu = SousPartie.objects.filter(numPartie=readEtu.numPartie, nomSousPartie="Part 6")
+    sp7Etu = SousPartie.objects.filter(numPartie=readEtu.numPartie, nomSousPartie="Part 7")
+
+    listEtu = []
+    readEtu = []
+
+
+    QuestP1 = Question.objects.filter(numSousPartie=sp1Etu[0])
+    print(QuestP1)
+    for quest in QuestP1:
+        listEtu += [quest]
+
+    QuestP2 = Question.objects.filter(numSousPartie=sp2Etu[0])
+    for quest in QuestP2:
+        listEtu += [quest]
+    QuestP3 = Question.objects.filter(numSousPartie=sp3Etu[0])
+    for quest in QuestP3:
+        listEtu += [quest]
+    QuestP4 = Question.objects.filter(numSousPartie=sp4Etu[0])
+    for quest in QuestP4:
+        listEtu += [quest]
+
+    QuestP5 = Question.objects.filter(numSousPartie=sp5Etu[0])
+    for quest in QuestP5:
+        readEtu += [quest]
+    QuestP6 = Question.objects.filter(numSousPartie=sp6Etu[0])
+    for quest in QuestP6:
+        readEtu += [quest]
+    QuestP7 = Question.objects.filter(numSousPartie=sp7Etu[0])
+    for quest in QuestP7:
+        readEtu += [quest]
+
+    for i in range (0,100):
+        if listEtu[i].reponseQuestion == listProf[i].reponseQuestion:
+            listening +=1
+
+    for i in range (0,100):
+        if readEtu[i].reponseQuestion == readProf[i].reponseQuestion:
+            reading +=1
+
+
+    #conversion des notes:
+    noteListening=[5,5,5,5,5,5,5,5,5,5,
+                   5,5,5,5,5,5,10,15,20,25,
+                   30,35,40,45,50,55,60,70,80,85,
+                   90,95,100,105,115,125,135,140,150,160,
+                   170,175,180,190,200,205,215,220,225,230,
+                   235,245,255,260,265,275,285,290,295,300,
+                   310,320,325,330,335,340,345,350,355,360,
+                   365,370,375,385,395,400,405,415,420,425,
+                   430,435,440,445,450,455,460,465,475,480,
+                   485,490,495,495,495,495,495,495,495,495]
+    noteReading=[5,5,5,5,5,5,5,5,5,5,
+                 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+                 10,15,20,25,30,35,40,45,55,60,
+                 65,70,75,80,85,90,95,105,115,120,
+                 125,130,135,140,145,155,160,170,175,185,
+                 195,205,210,215,220,230,240,245,250,255,
+                 260,270,275,280,285,290,295,295,300,310,
+                 315,320,325,330,335,340,345,355,360,370,
+                 375,385,390,395,400,405,415,420,425,435,
+                 440,450,455,460,470,475,485,485,490,495]
+
+    note = noteListening[listening] + noteReading[reading]
+
+    return render(request, 'corriger_sujet.html', locals())
+
 
 @login_required
 def create_session(request):
