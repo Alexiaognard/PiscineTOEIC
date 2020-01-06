@@ -54,7 +54,11 @@ class Professeur(models.Model):
         db_table = 'prof'
 
 
-
+class Enseigner(models.Model):
+    numProf=models.ForeignKey(Professeur, on_delete=models.CASCADE, db_column='numProf')
+    numClasse=models.ForeignKey(Classe, on_delete=models.CASCADE, db_column='numClasse')
+    class Meta:
+        db_table='enseigner'
 
 
 class Sujet(models.Model):
@@ -75,6 +79,7 @@ class SessionToeic(models.Model):
 class Correspondre(models.Model):
     numSujet = models.ForeignKey(Sujet, on_delete=models.CASCADE, db_column='numSujet')
     numSession = models.ForeignKey(SessionToeic, on_delete=models.CASCADE, db_column='numSession')
+
 
     class Meta:
         db_table = 'correspondre'

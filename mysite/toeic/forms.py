@@ -57,6 +57,16 @@ class ConnectionSubjectForm(forms.Form):
     class Meta:
         model = Sujet
         fields = ('numSujet','mdpSujet')
+
+class CreateSessionForm(forms.Form):
+    dateSession = forms.DateTimeField(label="Day")
+    numSujet = forms.IntegerField(label="num Subject")
+    class Meta:
+        model = SessionToeic
+        fields = ("dateSession", "numSujet")
+
+
+
 QUESTION_CHOICES = [
         ('A', 'A'),
         ('B', 'B'),
