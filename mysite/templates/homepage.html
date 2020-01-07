@@ -11,9 +11,9 @@
                   <div class="card-body">
                     <h5 class="card-title">Mon Compte</h5>
                       {% if request.session.estEtu %}
-                        <a href="{% url 'dashboardEtu' %}" class="card-link">Voir mon compte</a>
+                        <a href="{% url 'dashboardEtu' %}" class="btn btn-info">Voir mon compte</a>
                       {% else %}
-                    <a href="{% url 'dashboardProf' %}" class="card-link">Voir mon compte</a>
+                    <a href="{% url 'dashboardProf' %}" class="btn btn-info">Voir mon compte</a>
                       {% endif %}
                     </div>
 
@@ -24,10 +24,10 @@
                   <div class="card-body">
                       {% if request.session.estEtu %}
                       <h5 class="card-title">Faire un sujet</h5>
-                        <a href="{% url 'create_subject_etu' %}" class="card-link">Faire un sujet</a>
+                        <a href="{% url 'create_subject_etu' %}" class="btn btn-info">Faire un sujet</a>
                       {% else %}
                       <h5 class="card-title">Créer un sujet</h5>
-                        <a href="{% url 'create_subject_prof' %}" class="card-link">Créer un sujet</a>
+                        <a href="{% url 'create_subject_prof' %}" class="btn btn-info">Créer un sujet</a>
                       {% endif %}
                  </div>
 
@@ -38,7 +38,7 @@
                   <div class="card-body">
                       {% if not request.session.estEtu %}
                       <h5 class="card-title">Créer une session</h5>
-                        <a href="{% url 'create_session' %}" class="card-link">Créer une session</a>
+                        <a href="{% url 'create_session' %}" class="btn btn-info">Créer une session</a>
 
                       {% endif %}
                  </div>
@@ -49,7 +49,7 @@
                 <div class="card" style="width: 18rem;">
                   <div class="card-body">
                     <h5 class="card-title">Statistiques</h5>
-                    <a href="#" class="card-link">Voir les stats</a>
+                    <a href="#" class="btn btn-info">Voir les stats</a>
                  </div>
 
                 </div>
@@ -58,7 +58,7 @@
                 <div class="card" style="width: 18rem;">
                   <div class="card-body">
                     <h5 class="card-title">Mes Sujets</h5>
-                    <a href="#" class="card-link">Voir mes sujets</a>
+                    <a href="#" class="btn btn-info">Voir mes sujets</a>
                  </div>
 
                 </div>
