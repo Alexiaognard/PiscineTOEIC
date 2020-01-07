@@ -1288,3 +1288,17 @@ def read_session(request,idSession):
 
         return render(request, 'read_session.html', locals())
 
+@login_required
+def lire_sujets(request):
+    listSujet = []
+    if request.session['estEtu']:
+            userEtu = Etudiant.objects.get(numEtu=request.user.id)
+
+            liste = FaireSujet.objects.filter(numEtu=userEtu)
+
+
+            for i in liste :
+                listSujet.append(i.numSujet)
+                sujetProf = Corriger.objects.get(numSujetEtu=i.numSujet)
+    return render(request, 'listeSujet.html', locals())
+

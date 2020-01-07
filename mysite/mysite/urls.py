@@ -38,6 +38,7 @@ urlpatterns = [
     path('read/subject_etu/<int:idSujet>', views.read_subject_etu, name='read_subject_etu'),
     path('create/session', views.create_session, name='create_session'),
     path('read/session/<int:idSession>', views.read_session, name='read_session'),
-    path('corriger/<int:idSujet>',views.corriger_sujet, name='corriger_sujet')
+    path('corriger/<int:idSujet>',views.corriger_sujet, name='corriger_sujet'),
+    path('listSubjects', views.lire_sujets, name='voir_sujet'),
 
 ]
