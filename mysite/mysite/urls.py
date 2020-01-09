@@ -42,6 +42,6 @@ urlpatterns = [
     path('listSubjects', views.lire_sujets, name='voir_sujet'),
     path('updateEtu', views.updateEtu, name='updateEtu'),
     path('updateProf', views.updateProf, name='updateProf'),
-
+    path('deleteEtu', views.delete_etu, name='delete_etu'),
 
 ]

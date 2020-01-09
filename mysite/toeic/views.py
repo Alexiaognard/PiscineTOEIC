@@ -1347,3 +1347,16 @@ def updateProf(request):
         else:
             form = UpdateFormProf()
         return render(request, 'updateProf.html', locals())
+
+
+#permet de delete un etudiant
+@login_required
+def delete_etu(request):
+    user = User.objects.get(id=request.user.id)
+    etu = Etudiant.objects.get(numEtu=request.user.id)
+    if request.method == 'POST':
+        User.objects.get(id=request.user.id).delete()
+        Etudiant.objects.get(numEtu=request.user.id).delete()
+        return render(request, 'index.html')
+
+    return render(request, 'deleteEtu.html')
