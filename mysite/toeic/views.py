@@ -1226,7 +1226,7 @@ def corriger_sujet(request,idSujet):
 
 
     #conversion des notes:
-    noteListening=[5,5,5,5,5,5,5,5,5,5,
+    noteListening=[0,5,5,5,5,5,5,5,5,5,5,
                    5,5,5,5,5,5,10,15,20,25,
                    30,35,40,45,50,55,60,70,80,85,
                    90,95,100,105,115,125,135,140,150,160,
@@ -1236,7 +1236,7 @@ def corriger_sujet(request,idSujet):
                    365,370,375,385,395,400,405,415,420,425,
                    430,435,440,445,450,455,460,465,475,480,
                    485,490,495,495,495,495,495,495,495,495]
-    noteReading=[5,5,5,5,5,5,5,5,5,5,
+    noteReading=[0,5,5,5,5,5,5,5,5,5,5,
                  5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
                  10,15,20,25,30,35,40,45,55,60,
                  65,70,75,80,85,90,95,105,115,120,
@@ -1302,3 +1302,48 @@ def lire_sujets(request):
                 sujetProf = Corriger.objects.get(numSujetEtu=i.numSujet)
     return render(request, 'listeSujet.html', locals())
 
+@login_required
+def updateEtu(request):
+    if not request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        user = User.objects.get(id=request.user.id)
+        etu = Etudiant.objects.get(numEtu=request.user.id)
+        if request.method == "POST":
+            form = UpdateFormEtu(request.POST)
+            if form.is_valid():
+                user.first_name = form.cleaned_data.get('first_name')
+                user.last_name = form.cleaned_data.get('last_name')
+                user.email = form.cleaned_data.get('email')
+                user.save()
+                try:
+                     classe = Classe.objects.get(nomClasse= form.cleaned_data.get('classeEtu'))
+                except:
+                    classe = Classe(nomClasse=form.cleaned_data.get('classeEtu'), promoClasse=form.cleaned_data.get('promoEtu'))
+                    classe.save()
+                etu.classeEtu = classe
+                etu.promoEtu = form.cleaned_data.get('promoEtu')
+                etu.save()
+                return monCompte_etu(request)
+        else:
+            form = UpdateFormEtu()
+        return render(request, 'updateEtu.html', locals())
+
+@login_required
+def updateProf(request):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        user = User.objects.get(id=request.user.id)
+        prof = Professeur.objects.get(numProf=request.user.id)
+        if request.method == "POST":
+            form = UpdateFormProf(request.POST)
+            if form.is_valid():
+                user.first_name = form.cleaned_data.get('first_name')
+                user.last_name = form.cleaned_data.get('last_name')
+                user.email = form.cleaned_data.get('email')
+                user.save()
+                return monCompte_prof(request)
+        else:
+            form = UpdateFormProf()
+        return render(request, 'updateProf.html', locals())

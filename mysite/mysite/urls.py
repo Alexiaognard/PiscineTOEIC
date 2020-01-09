@@ -40,5 +40,8 @@ urlpatterns = [
     path('read/session/<int:idSession>', views.read_session, name='read_session'),
     path('corriger/<int:idSujet>',views.corriger_sujet, name='corriger_sujet'),
     path('listSubjects', views.lire_sujets, name='voir_sujet'),
+    path('updateEtu', views.updateEtu, name='updateEtu'),
+    path('updateProf', views.updateProf, name='updateProf'),
+
 
 ]

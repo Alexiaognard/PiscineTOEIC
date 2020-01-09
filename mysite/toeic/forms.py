@@ -290,3 +290,16 @@ class RemplirSujetForm(forms.Form):
     class Meta:
         model = Question
         fields = "__all__"
+
+#Formulaire de update d'un compte étudiant
+class UpdateFormEtu(forms.Form):
+    first_name = forms.CharField(label="first_name")
+    last_name = forms.CharField(label="last_name")
+    email = forms.EmailField(label="email")
+    classeEtu = forms.ChoiceField(label="Class",choices=Classe_choices)
+    promoEtu = forms.IntegerField(label="Prom")
+
+class UpdateFormProf(forms.Form):
+    first_name = forms.CharField(label="first_name")
+    last_name = forms.CharField(label="last_name")
+    email = forms.EmailField(label="email")

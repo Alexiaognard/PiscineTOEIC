@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block title %}Mise à jour d'un compte Etudiant{% endblock %}
+{% block content %}
+
+      <form method="post" action="">
+      {% csrf_token %}
+          {% for field in form %}
+              {% for error in field.errors %}
+              <div class="textError">
+                <p>{{ error }}</p>
+              </div>
+              {% endfor %}
+              <div class = "case">
+                {{ field.label_tag }}
+                {{ field }}
+              {% if field.help_text %}
+                <small>{{ field.help_text }}</small>
+              {% endif %}
+              </div>
+          {% endfor %}
+          <div class="boutonForm">
+            <button class="btn purple" type="submit" >Modifier mon compte</button>
+          </div>
+      </form>
+   
+
+{% endblock %}

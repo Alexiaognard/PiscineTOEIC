@@ -13,8 +13,14 @@
             {% if request.session.estEtu %}
             <li>Classe : {{ user.classeEtu.nomClasse }}</li>
             <li>Promo : {{ user.classeEtu.promoClasse }}</li>
-            {% endif %}
+            
         </ul>
+        <a href={% url 'updateEtu' %}>Modifier mon compte </a>
+        {% else %}
+         <a href={% url 'updateProf' %}>Modifier mon compte </a>
+
+        {% endif %}
+
     </div>
 
 
