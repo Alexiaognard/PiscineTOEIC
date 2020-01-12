@@ -1247,6 +1247,11 @@ def corriger_sujet(request,idSujet):
                  375,385,390,395,400,405,415,420,425,435,
                  440,450,455,460,470,475,485,485,490,495]
 
+    partieEtu[0].notePartie=noteListening[listening]
+    partieEtu[0].save()
+    partieEtu[1].notePartie=noteReading[reading]
+    partieEtu[1].save()
+
     note = noteListening[listening] + noteReading[reading]
 
     return render(request, 'corriger_sujet.html', locals())

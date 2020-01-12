@@ -1,28 +1,47 @@
 {% extends 'index.html' %}
 
-{% block title %}Mise à jour d'un compte Etudiant{% endblock %}
 {% block content %}
 
+<div class="page">
+  <div class = "formulaire">
+    <div class="blocCentrer">
       <form method="post" action="">
-      {% csrf_token %}
-          {% for field in form %}
-              {% for error in field.errors %}
-              <div class="textError">
-                <p>{{ error }}</p>
-              </div>
-              {% endfor %}
-              <div class = "case">
-                {{ field.label_tag }}
-                {{ field }}
-              {% if field.help_text %}
-                <small>{{ field.help_text }}</small>
-              {% endif %}
-              </div>
-          {% endfor %}
-          <div class="boutonForm">
-            <button class="btn purple" type="submit" >Modifier mon compte</button>
-          </div>
+          {% csrf_token %}
+            <div class = "case">
+                <label for="id_first_name">First Name :</label><br>
+                <input type="text" name="first_name" value={{ user.first_name }} required id="id_first_name">
+            </div>
+
+            <div class = "case">
+                <label for="id_last_name">Last Name :</label><br>
+                <input type="text" name="last_name" value={{ user.last_name }} required id="id_last_name">
+            </div>
+
+            <div class = "case">
+                <label for="id_email">E-mail :</label><br>
+                <input type="email" value={{ user.email }} name="email" required id="id_email">
+            </div>
+
+            <div class = "case">
+                <label for="id_class">Class :</label><br>
+                <input type="text" value={{ etu.classeEtu.nomClasse }} name="classeEtu" required id="id_class">
+            </div>
+          <div class = "case">
+                <label for="id_prom">Prom :</label><br>
+                <input type="text" value={{ etu.classeEtu.promoClasse }} name="promoEtu" required id="id_prom">
+            </div>
+
+            <div class="boutonForm">
+                <button class ="btn purple" type="submit" >Modifier mes informations personnelles</button>
+            </div>
+
       </form>
-   
+
+    </div>
+
+  </div>
+
+</div>
 
 {% endblock %}
+
