@@ -154,7 +154,7 @@ class Question(models.Model):
 
     numQuestion = models.AutoField(primary_key=True)
     nomQuestion = models.CharField(blank=True, max_length=15)
-    reponseQuestion = models.CharField(max_length=1,choices=QUESTION_CHOICES)
+    reponseQuestion = models.CharField(max_length=1, blank=True)
     numSousPartie = models.ForeignKey(SousPartie,on_delete=models.CASCADE, db_column='numSousPartie')
 
     class Meta:

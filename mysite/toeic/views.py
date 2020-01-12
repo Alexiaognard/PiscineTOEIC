@@ -7,6 +7,8 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator, EmptyPage
 from toeic.forms import *
 from toeic.models import *
+import datetime
+
 
 groupe_prof = Group(id='1',name='professeur')
 groupe_prof.save()
@@ -670,6 +672,8 @@ def make_subject_etu(request, idSujet):
                 p1.save()
                 p2 = PartieSujet(nomPartie="Reading", dureePartie=50000, notePartie=0, numSujet=sub)
                 p2.save()
+                temps = p1.dureePartie + p2.dureePartie
+
 
                 comp1 = Composer(numSujet=sub, numPartie=p1)
                 comp1.save()
@@ -1112,6 +1116,8 @@ def make_subject_etu(request, idSujet):
 
             form = RemplirSujetForm()
 
+
+
         return render(request, 'create_subject.html', locals())
 
 @login_required
@@ -1295,16 +1301,26 @@ def read_session(request,idSession):
 
 @login_required
 def lire_sujets(request):
-    listSujet = []
+    listSujetProf = []
+    listSujetEtu = []
     if request.session['estEtu']:
             userEtu = Etudiant.objects.get(numEtu=request.user.id)
 
             liste = FaireSujet.objects.filter(numEtu=userEtu)
 
 
+
             for i in liste :
-                listSujet.append(i.numSujet)
-                sujetProf = Corriger.objects.get(numSujetEtu=i.numSujet)
+                listSujetEtu.append(i.numSujet)
+
+                try:
+                    sujetProf = Corriger.objects.get(numSujetEtu=i.numSujet)
+                    listSujetProf.append(sujetProf)
+                except:
+                    listSujetProf
+
+
+
     return render(request, 'listeSujet.html', locals())
 
 @login_required
@@ -1316,6 +1332,7 @@ def updateEtu(request):
         etu = Etudiant.objects.get(numEtu=request.user.id)
         if request.method == "POST":
             form = UpdateFormEtu(request.POST)
+
             if form.is_valid():
                 user.first_name = form.cleaned_data.get('first_name')
                 user.last_name = form.cleaned_data.get('last_name')
@@ -1332,6 +1349,8 @@ def updateEtu(request):
                 return monCompte_etu(request)
         else:
             form = UpdateFormEtu()
+            Classe_choices = ['IG3','IG4', 'IG5','MAT3', 'MAT4', 'MAT5', 'PEIP1', 'PEIP2', 'GBA3', 'GBA4', 'GBA5', 'MI3', 'MI4', 'MI5','STE3', 'STE4', 'STE5'
+            ]
         return render(request, 'updateEtu.html', locals())
 
 @login_required
