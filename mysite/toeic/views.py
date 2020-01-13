@@ -1384,3 +1384,28 @@ def delete_etu(request):
         return render(request, 'index.html')
 
     return render(request, 'deleteEtu.html')
+
+@login_required
+def stats_par_sujet_etu(request):
+    if not request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        userEtu = Etudiant.objects.get(numEtu=request.user.id)
+        listening = "Listening"
+        reading = "Reading"
+        parties = []
+        notes = []
+        liste = FaireSujet.objects.filter(numEtu=userEtu)
+        listeNumSujets = []
+        for b in liste:
+            listeNumSujets.append(b.numSujet)
+#listeNumSujets contient tous les numéros de sujets fait par l'eleve
+        for i in listeNumSujets :
+            partie = PartieSujet.objects.filter(numSujet= i)
+            # partie contient les parties sujets 
+            for j in partie : 
+                parties.append(j)
+# parties contient toutes les parties d'un élève 
+        return render(request, 'stats_par_sujet_etu.html', locals())
+
+
