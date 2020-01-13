@@ -95,7 +95,7 @@ def login_user(request):
                 if estEtu:
                     return redirect('homepage')
                 else:
-                    return redirect('dashboardProf')
+                    return redirect('homepage')
     else:
         form = SignInForm(request.POST)
     return render(request, 'signin.html', locals())
@@ -107,16 +107,23 @@ def logout_user(request):
 
 
 #---------------- Vue mon compte ---------------------
+@login_required
 def monCompte_etu(request):
-    utilisateur = User.objects.get(id=request.user.id)
-    user = Etudiant.objects.get(numEtu=request.user.id)
-    return render(request, 'dashboard.html', locals())
+    if not request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        utilisateur = User.objects.get(id=request.user.id)
+        user = Etudiant.objects.get(numEtu=request.user.id)
+        return render(request, 'dashboard.html', locals())
 
+@login_required
 def monCompte_prof(request):
-
-    utilisateur = User.objects.get(id=request.user.id)
-    user = Professeur.objects.get(numProf=request.user.id)
-    return render(request, 'dashboard.html', locals())
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        utilisateur = User.objects.get(id=request.user.id)
+        user = Professeur.objects.get(numProf=request.user.id)
+        return render(request, 'dashboard.html', locals())
 
 #---------------- Vue création de sujet de TOEIC ---------------------
 @login_required
@@ -1431,53 +1438,11 @@ def stats_par_partie_prof(request,):
                 else :
                     notesListening.append(i.notePartie)
 
-        maxReading = numpy.amax(notesReading)
-        minReading = numpy.amin(notesReading)
-        maxListening = numpy.amax(notesListening)
-        minListening = numpy.amin(notesListening)
+        maxReading = numpy.argmax(notesReading)
+        minReading = numpy.argmin(notesReading)
+        maxListening = numpy.argmax(notesListening)
+        minListening = numpy.argmin(notesListening)
         moyReading = numpy.mean(notesReading)
         moyListening = numpy.mean(notesListening)
         
         return render(request, 'stats_par_partie_prof.html', locals())
-
-@login_required
-def stats_par_sujet_prof(request,idSujet):
-    if request.session['estEtu']:
-        return render(request, 'error404.html')
-    else:
-        partieReading = PartieSujet.objects.filter(numSujet= idSujet)
-        partieListening = PartieSujet.objects.filter(numSujet= idSujet,nomPartie = "Listening")
-        listeReading = []
-        listeListening = []
-        listeFinale = []
-
-        for i in partieReading :
-            listeReading.append(i.notePartie)
-            
-
-        for j in partieListening :
-            listeListening.append(j.notePartie)
-            
-        for k in range(0,len(listeListening)):
-            listeFinale.append(listeListening[k] + listeReading[k])
-
-        
-        moyenne = numpy.mean(listeFinale)
-        minimum = numpy.amin(listeFinale)
-        maximum = numpy.amax(listeFinale)
-
-
-        return render(request, 'stats_par_sujet_prof.html', locals())
-
-@login_required
-def liste_sujet_prof(request,):
-    if request.session['estEtu']:
-        return render(request, 'error404.html')
-    else :
-        listeSujet = Corriger.objects.all()
-
-
-
-
-
-    return render(request, 'liste_sujet_prof.html', locals())
