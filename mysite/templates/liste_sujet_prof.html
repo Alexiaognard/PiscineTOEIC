@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<h3> Liste de sujets:</h3>
+
+<ul>
+    {% for i in listeSujet %}
+
+    <li>Sujet n°: {{ i.numSujetProf.numSujet }} <a href="http://127.0.0.1:8000/stats_par_sujet_prof/{{i.numSujetProf.numSujet}}"> Voir les statistiques</a></li>
+
+
+    {% endfor %}
+
+
+</ul>
+
+{% endblock %}

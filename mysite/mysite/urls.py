@@ -46,4 +46,6 @@ urlpatterns = [
     path('stats_par_sujet_etu', views.stats_par_sujet_etu, name='stats_par_sujet_etu'),
     path('stats_par_partie_prof', views.stats_par_partie_prof, name='stats_par_partie_prof'),
 
+    path('stats_par_sujet_prof/<int:idSujet>', views.stats_par_sujet_prof, name='stats_par_sujet_prof'),
+    path('liste_sujet_prof', views.liste_sujet_prof, name='liste_sujet_prof'),
 ]
