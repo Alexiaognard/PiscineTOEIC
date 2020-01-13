@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="recapitulation">
+    <div class="collection with-header">
+    	
+ 
+        
+           
+        	<ul>
+        		<li>La note maximale de la partie Reading est : {{maxReading}}</li>
+        		<li>La note minimale de la partie Reading est : {{minReading}}</li>
+                <li>La moyenne de la partie Reading est : {{moyReading}}</li>
+                <li>La note maximale de la partie Listening est : {{maxListening}}</li>
+                <li>La note minimale de la partie Listening est : {{minListening}}</li>
+                <li>La moyenne de la partie Listening est : {{moyListening}}</li>
+                <li>Liste notes reading: {{notesReading}}</li>
+             </ul>
+
+		
+		
+
+        
+    </div>
+</div>
+
+{% endblock %}

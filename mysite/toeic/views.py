@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, EmptyPage
 from toeic.forms import *
 from toeic.models import *
 import datetime
+import numpy
 
 
 groupe_prof = Group(id='1',name='professeur')
@@ -1253,10 +1254,12 @@ def corriger_sujet(request,idSujet):
                  375,385,390,395,400,405,415,420,425,435,
                  440,450,455,460,470,475,485,485,490,495]
 
-    partieEtu[0].notePartie=noteListening[listening]
-    partieEtu[0].save()
-    partieEtu[1].notePartie=noteReading[reading]
-    partieEtu[1].save()
+    listeningEtu = PartieSujet.objects.get(numPartie = partieEtu[0].numPartie)
+    listeningEtu.notePartie = noteListening[listening]
+    listeningEtu.save()
+    readingEtu = PartieSujet.objects.get(numPartie = partieEtu[1].numPartie)
+    readingEtu.notePartie = noteReading[reading]
+    readingEtu.save()
 
     note = noteListening[listening] + noteReading[reading]
 
@@ -1391,8 +1394,6 @@ def stats_par_sujet_etu(request):
         return render(request, 'error404.html')
     else:
         userEtu = Etudiant.objects.get(numEtu=request.user.id)
-        listening = "Listening"
-        reading = "Reading"
         parties = []
         notes = []
         liste = FaireSujet.objects.filter(numEtu=userEtu)
@@ -1409,3 +1410,32 @@ def stats_par_sujet_etu(request):
         return render(request, 'stats_par_sujet_etu.html', locals())
 
 
+@login_required
+def stats_par_partie_prof(request,):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        listeSujet = []
+        f = FaireSujet.objects.all()
+        for i in f :
+            listeSujet.append(i.numSujet)
+
+        
+        parties = []
+        notesListening = []
+        notesReading = []
+        parties = PartieSujet.objects.filter(numSujet__in=listeSujet)
+        for i in parties :
+                if (i.nomPartie == "Reading") :
+                    notesReading.append(i.notePartie)
+                else :
+                    notesListening.append(i.notePartie)
+
+        maxReading = numpy.argmax(notesReading)
+        minReading = numpy.argmin(notesReading)
+        maxListening = numpy.argmax(notesListening)
+        minListening = numpy.argmin(notesListening)
+        moyReading = numpy.mean(notesReading)
+        moyListening = numpy.mean(notesListening)
+        
+        return render(request, 'stats_par_partie_prof.html', locals())
