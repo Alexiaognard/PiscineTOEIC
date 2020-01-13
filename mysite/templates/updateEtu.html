@@ -9,12 +9,12 @@
           {% csrf_token %}
             <div class = "case">
                 <label for="id_first_name">First Name :</label><br>
-                <input type="text" name="first_name" value={{ user.first_name }} required id="id_first_name">
+                <input type="text" name="first_name" required id="id_first_name" value="{{ user.first_name }}">
             </div>
 
             <div class = "case">
                 <label for="id_last_name">Last Name :</label><br>
-                <input type="text" name="last_name" value={{ user.last_name }} required id="id_last_name">
+                <input type="text" name="last_name" required id="id_last_name" value={{ user.last_name }}>
             </div>
 
             <div class = "case">
@@ -22,13 +22,19 @@
                 <input type="email" value={{ user.email }} name="email" required id="id_email">
             </div>
 
-            <div class = "case">
-                <label for="id_class">Class :</label><br>
-                <input type="text" value={{ etu.classeEtu.nomClasse }} name="classeEtu" required id="id_class">
-            </div>
+            <div class="form-group">
+            <label for="exampleFormControlSelect1">Class:</label>
+
+            <select name="classeEtu" class="form-control" id="exampleFormControlSelect1">
+                {% for cla in Classe_choices %}
+              <option>{{cla}}</option>
+                {% endfor %}
+            </select>
+
+          </div>
           <div class = "case">
                 <label for="id_prom">Prom :</label><br>
-                <input type="text" value={{ etu.classeEtu.promoClasse }} name="promoEtu" required id="id_prom">
+                <input type="text"  name="promoEtu" required id="id_prom" value={{ etu.promoEtu }}>
             </div>
 
             <div class="boutonForm">

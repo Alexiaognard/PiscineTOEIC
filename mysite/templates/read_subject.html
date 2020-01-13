@@ -21,7 +21,7 @@
             {% if not request.session.estEtu %}
             <a href="{% url 'create_session' %}" >Créer une session</a>
             {% else %}
-            <a href="{% url 'corriger_sujet' sub.numSujet">Corriger le sujet</a>
+            <a href="http://127.0.0.1:8000/corriger/{{sub.numSujet}}">Corriger le sujet</a>
             {% endif %}
 
     </div>
