@@ -1417,8 +1417,55 @@ def stats_par_sujet_etu(request):
         return render(request, 'stats_par_sujet_etu.html', locals())
 
 
+
+
 @login_required
-def stats_par_partie_prof(request,):
+def stats_par_sujet_prof(request,idSujet):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        corr = Corriger.objects.filter(numSujetProf = idSujet)
+        for l in corr : 
+
+            partieReading = PartieSujet.objects.filter(numSujet= l.numSujetEtu,nomPartie = "Reading")
+            partieListening = PartieSujet.objects.filter(numSujet= l.numSujetEtu,nomPartie = "Listening")
+            listeReading = []
+            listeListening = []
+            listeFinale = []
+
+            for i in partieReading :
+                listeReading.append(i.notePartie)
+                
+
+            for j in partieListening :
+                listeListening.append(j.notePartie)
+                
+            for k in range(0,len(listeListening)):
+                listeFinale.append(listeListening[k] + listeReading[k])
+
+        
+        moyenne = numpy.mean(listeFinale)
+        minimum = numpy.amin(listeFinale)
+        maximum = numpy.amax(listeFinale)
+
+
+        return render(request, 'stats_par_sujet_prof.html', locals())
+
+@login_required
+def liste_sujet_prof(request,):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else :
+        requeteSujet = Proposer.objects.filter(numProf= request.user.id)
+        listeSujet = []
+        for i in requeteSujet :
+            listeSujet.append(i)
+
+    return render(request, 'liste_sujet_prof.html', locals())
+
+
+@login_required
+def stats_par_partie_prof(request):
     if request.session['estEtu']:
         return render(request, 'error404.html')
     else:
@@ -1438,12 +1485,13 @@ def stats_par_partie_prof(request,):
                 else :
                     notesListening.append(i.notePartie)
 
-        maxReading = numpy.argmax(notesReading)
-        minReading = numpy.argmin(notesReading)
-        maxListening = numpy.argmax(notesListening)
-        minListening = numpy.argmin(notesListening)
-        moyReading = numpy.mean(notesReading)
         moyListening = numpy.mean(notesListening)
+        moyReading = numpy.mean(notesReading)
+        maxReading = numpy.amax(notesReading)
+        minReading = numpy.amin(notesReading)
+        maxListening = numpy.amax(notesListening)
+        minListening = numpy.amin(notesListening)
+        return render(request, 'stats_par_partie_prof.html', locals())
         
         return render(request, 'stats_par_partie_prof.html', locals())
 

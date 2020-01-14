@@ -48,4 +48,6 @@ urlpatterns = [
 
     path('stats_par_sujet_prof/<int:idSujet>', views.stats_par_sujet_prof, name='stats_par_sujet_prof'),
     path('liste_sujet_prof', views.liste_sujet_prof, name='liste_sujet_prof'),
+
+   
 ]
