@@ -1,3 +1,8 @@
+body {
+  overflow-x : hidden;
+  margin : 0;
+  background-size: 100%;
+  }
 
 
 .material-icons {
@@ -46,14 +51,15 @@
   align-items: stretch;
   justify-content: space-between;
   border: 3px solid #1C6EA4;
-  /*position: fixed;*/
+  
   height: 40px;
   bottom: 0;
   width: 100%;
   text-align: center;
   background: #D0E4F5;
-  margin-top: 20px; 
+  margin-top: 10px; 
 }
+
 
 .table-striped{
   border-collapse: collapse;
