@@ -8,25 +8,12 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
- 
-<div class="recapitulation"> 
-    <div class="collection with-header"> 
-         
-  
-            
-            <ul> 
-                <li>Nom sujet: {{nomS}}</li>
-                <li>La note maximale pour ce sujet est : {{maximum}}</li> 
-                <li>La note minimale pour ce sujet est : {{minimum}}</li> 
-                <li>La moyenne pour ce sujet est : {{moyenne}}</li>         
-
- 
-             </ul> 
- <figure class="highcharts-figure">
+<div>
+	<figure class="highcharts-figure">
     <div id="containerP"></div>
     <div id="containerBar"></div>
 </figure>
-         
+	<div>
 <script>
 document.addEventListener('DOMContentLoaded', function(){    
 var chart = Highcharts.chart('containerBar', {
@@ -146,6 +133,8 @@ var pie = Highcharts.chart('containerP', {
     }]
 });
 });
+
+
  </script>
          
     </div> 

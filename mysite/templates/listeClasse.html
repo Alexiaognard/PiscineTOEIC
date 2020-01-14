@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<h3> Classes :</h3>
+<table class="table table-striped">
+  
+    
+      {% for i in listeClasse %}
+      <li scope="col">{{ i.nomClasse }}</li> <a href="http://127.0.0.1:8000/statsClasses/{{i.numClasse}}">Voir les statistiques</a>
+      {% endfor %}
+    
+  
+    
+  </tbody>
+
+</table>
+
+{% endblock %}

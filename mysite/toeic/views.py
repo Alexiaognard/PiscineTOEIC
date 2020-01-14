@@ -1813,6 +1813,7 @@ def stats_par_sujet_prof(request,idSujet):
                 
             for k in range(0,len(listeListening)):
                 listeFinale.append(listeListening[k] + listeReading[k])
+
         for k in range(0, len(listeFinale)):
             if listeFinale[k] <600 :
                 cpt0_600+=1
@@ -1823,13 +1824,18 @@ def stats_par_sujet_prof(request,idSujet):
             elif 820 <= listeFinale[k] < 900:
                 cpt820_900+=1
             elif listeFinale[k] >= 900:
-                cpt900_990+=1        
+                cpt900_990+=1      
 
-        pourcent0_600 = cpt0_600/len(listeListening) * 100
-        pourcent600_780 = cpt600_780/len(listeListening) * 100
-        pourcent780_820 = cpt780_820/len(listeListening) * 100
-        pourcent820_900 = cpt820_900/len(listeListening) * 100
-        pourcent900_990 = cpt900_990/len(listeListening) * 100
+        pourcent0_600 = (cpt0_600/len(listeFinale)) * 100
+        pourcent600_780 = (cpt600_780/len(listeFinale)) * 100
+        pourcent780_820 = (cpt780_820/len(listeFinale)) * 100
+        pourcent820_900 = (cpt820_900/len(listeFinale)) * 100
+        pourcent900_990 = (cpt900_990/len(listeFinale)) * 100
+        
+
+
+        pourcentToeic = pourcent780_820 +pourcent820_900 + pourcent900_990
+        pourcentPasToeic = 100 - pourcentToeic
         moyenne = numpy.mean(listeFinale)
         minimum = numpy.amin(listeFinale)
         maximum = numpy.amax(listeFinale)
@@ -1879,4 +1885,100 @@ def stats_par_partie_prof(request):
         minListening = numpy.amin(notesListening)
         
         return render(request, 'stats_par_partie_prof.html', locals())
+
+@login_required
+def listeclasse(request):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else :
+        Classes = Classe.objects.all()
+        listeClasse =[]
+        for i in Classes :
+            listeClasse.append(i)
+
+    return render(request, 'listeClasse.html', locals())
+
+@login_required
+def stats_classe_prof(request,numClasse):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else :
+        etudiantsC = Etudiant.objects.filter(classeEtu = numClasse)
+        listeNumEtu = []
+        listeNumSujets = []
+        notesReading = []
+        notesListening = []
+        notesTotales = []
+        moyListening = 0
+        moyReading =0 
+        maxReading =0 
+        minReading = 0
+        maxListening = 0 
+        minListening = 0
+        moyenne = 0
+        maximum = 0
+        minimum = 0
+        cpt0_600 = 0
+        cpt600_780 =0
+        cpt780_820 = 0
+        cpt820_900 = 0
+        cpt900_990 = 0
+        for i in etudiantsC :
+            listeNumEtu.append(i.numEtu)
+
+        sujets = FaireSujet.objects.filter(numEtu__in = etudiantsC)
+
+        for b in sujets :
+            listeNumSujets.append(b.numSujet)
+
+        parties = PartieSujet.objects.filter(numSujet__in = listeNumSujets)
+
+        for c in parties :
+            if (c.nomPartie == "Reading") :
+                    notesReading.append(c.notePartie)
+            else :
+                    notesListening.append(c.notePartie)
+
+        for k in range(0,len(notesListening)):
+                notesTotales.append(notesListening[k] + notesReading[k])
+
+        for j in range(0, len(notesTotales)):
+            if notesTotales[j] <600 :
+                cpt0_600+=1
+            elif 600 <= notesTotales[j] < 780:
+                cpt600_780+=1
+            elif 780 <= notesTotales[j] < 820:
+                cpt780_820+=1
+            elif 820 <= notesTotales[j] < 900:
+                cpt820_900+=1
+            elif notesTotales[j] >= 900:
+                cpt900_990+=1 
+
+
+
+        
+
+        if len(notesTotales)>0 :
+            moyenne = numpy.mean(notesTotales)
+            minimum = numpy.amin(notesTotales)
+            maximum = numpy.amax(notesTotales)
+            pourcent0_600 = cpt0_600/len(notesTotales) * 100
+            pourcent600_780 = cpt600_780/len(notesTotales) * 100
+            pourcent780_820 = cpt780_820/len(notesTotales) * 100
+            pourcent820_900 = cpt820_900/len(notesTotales) * 100
+            pourcent900_990 = cpt900_990/len(notesTotales) * 100
+            pourcentPasToeic = pourcent0_600 + pourcent600_780
+            pourcentToeic = (pourcent780_820 +pourcent820_900 + pourcent900_990)
+
+        if len(notesReading)>0:
+            moyReading = numpy.mean(notesReading)
+            maxReading = numpy.amax(notesReading)
+            minReading = numpy.amin(notesReading)
+        if len(notesListening)>0:
+            maxListening = numpy.amax(notesListening)
+            minListening = numpy.amin(notesListening)
+            moyListening = numpy.mean(notesListening)
+
+    return render(request, 'statsClasses.html', locals())
+
 
