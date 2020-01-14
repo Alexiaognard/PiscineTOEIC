@@ -8,24 +8,65 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
- 
-<div class="recapitulation"> 
-    <div class="collection with-header"> 
-         
-  
-            
-            <ul> 
-                <li>Nom sujet: {{nomS}}</li>
-                <li>La note maximale pour ce sujet est : {{maximum}}</li> 
-                <li>La note minimale pour ce sujet est : {{minimum}}</li> 
-                <li>La moyenne pour ce sujet est : {{moyenne}}</li>         
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Statistiques</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'liste_sujet_prof' %}">par Sujet</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{nomS}}</li>
+  </ol>
+</nav>
 
- 
-             </ul> 
- <figure class="highcharts-figure">
+
+<div class="recapitulation"> 
+    <div class="collection with-header">
+         <figure class="highcharts-figure">
     <div id="containerP"></div>
     <div id="containerBar"></div>
 </figure>
+                <div class=" text-center">
+
+        <table class="table table-striped">
+
+  <thead>
+    <tr>
+        <th scope="row"></th>
+      <th scope="col">Sujet : {{nomS }}</th>
+    </tr>
+  </thead>
+    <tbody>
+
+
+    <tr>
+        <th scope="row">Note Maximale</th>
+        <td>{{maximum}}/495</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Note Minimale</th>
+        <td>{{minimum}}/495</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Moyenne</th>
+        <td>{{moyenne}}/495</td>
+
+    </tr>
+
+
+
+
+
+  </tbody>
+
+
+</table>
+        </div>
+         
+  
+            
+
+
          
 <script>
 document.addEventListener('DOMContentLoaded', function(){    

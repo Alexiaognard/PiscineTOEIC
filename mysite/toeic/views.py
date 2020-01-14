@@ -1857,7 +1857,8 @@ def stats_par_sujet_prof(request,idSujet):
 
         pourcentToeic = pourcent780_820 +pourcent820_900 + pourcent900_990
         pourcentPasToeic = 100 - pourcentToeic
-        moyenne = numpy.mean(listeFinale)
+        moy = numpy.mean(listeFinale)
+        moyenne = numpy.around(moy, decimals=2)
         minimum = numpy.amin(listeFinale)
         maximum = numpy.amax(listeFinale)
 

@@ -1,7 +1,14 @@
 {% extends 'index.html' %}
 
 {% block content %}
-
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Statistiques</a></li>
+    <li class="breadcrumb-item"><a href="#">par Sujet</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{i.numSujet.nomSujet}}}</li>
+  </ol>
+</nav>
 <div class="recapitulation">
     <div class="collection with-header">
     	

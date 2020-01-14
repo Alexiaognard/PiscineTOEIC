@@ -9,25 +9,67 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Statistiques</a></li>
+    <li class="breadcrumb-item active" aria-current="page">par Partie</li>
+  </ol>
+</nav>
+
 <div class="recapitulation">
     <div class="collection with-header">
-    	
- 
-        
-           
-        	<ul>
-                <h3>Reading : </h3>
-        		<li>La note maximale de la partie Reading est : {{maxReading}}</li>
-        		<li>La note minimale de la partie Reading est : {{minReading}}</li>
-                <li>La moyenne de la partie Reading est : {{moyReading}}</li>
-                <li>Liste notes Reading: {{notesReading}}</li>
-                <h3>Listening :</h3>
-                <li>La note maximale de la partie Listening est : {{maxListening}}</li>
-                <li>La note minimale de la partie Listening est : {{minListening}}</li>
-                <li>La moyenne de la partie Listening est : {{moyListening}}</li>
-                <li>Liste notes Listening: {{notesListening}}</li>
 
-             </ul>
+
+
+
+        	        <div class=" text-center">
+
+        <table class="table table-striped">
+
+  <thead>
+    <tr>
+        <th scope="row"></th>
+      <th scope="col">Listening</th>
+      <th scope="col">Reading</th>
+    </tr>
+  </thead>
+    <tbody>
+
+
+    <tr>
+        <th scope="row">Note Maximale</th>
+        <td>{{maxListening}}/495</td>
+        <td>{{maxReading}}/495</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Note Minimale</th>
+        <td>{{minListening}}/495</td>
+        <td>{{minReading}}/495</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Moyenne</th>
+        <td>{{moyListening}}/495</td>
+        <td>{{moyReading}}/495</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Liste des Notes</th>
+        <td>{{notesListening}}</td>
+        <td>{{notesReading}}</td>
+
+    </tr>
+
+
+
+
+  </tbody>
+
+
+</table>
+        </div>
 
 		
 <figure class="highcharts-figure">
