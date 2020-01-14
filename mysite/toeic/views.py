@@ -116,7 +116,7 @@ def monCompte_etu(request):
     else:
         utilisateur = User.objects.get(id=request.user.id)
         user = Etudiant.objects.get(numEtu=request.user.id)
-        return render(request, 'dashboard.html', locals())
+        return render(request, 'monCompteEtu.html', locals())
 
 @login_required
 def monCompte_prof(request):
@@ -125,7 +125,7 @@ def monCompte_prof(request):
     else:
         utilisateur = User.objects.get(id=request.user.id)
         user = Professeur.objects.get(numProf=request.user.id)
-        return render(request, 'dashboard.html', locals())
+        return render(request, 'monCompteProf.html', locals())
 
 #---------------- Vue création de sujet de TOEIC ---------------------
 @login_required
