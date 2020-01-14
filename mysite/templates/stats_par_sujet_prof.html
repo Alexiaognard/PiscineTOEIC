@@ -1,6 +1,13 @@
 {% extends 'index.html' %} 
  
 {% block content %} 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
  
 <div class="recapitulation"> 
     <div class="collection with-header"> 
@@ -9,17 +16,140 @@
          
             
             <ul> 
+                <li>Nom sujet: {{nomS}}</li>
                 <li>La note maximale pour ce sujet est : {{maximum}}</li> 
                 <li>La note minimale pour ce sujet est : {{minimum}}</li> 
-                <li>La moyenne pour ce sujet est : {{moyenne}}</li> 
-               
-               
+                <li>La moyenne pour ce sujet est : {{moyenne}}</li>
  
              </ul> 
- 
+ <figure class="highcharts-figure">
+    <div id="containerP"></div>
+    <div id="containerBar"></div>
+</figure>
          
-         
- 
+<script>
+document.addEventListener('DOMContentLoaded', function(){    
+var chart = Highcharts.chart('containerBar', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Statistiques par sujet'
+    },
+    
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Note'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Sujet",
+            colorByPoint: true,
+            data: [
+                {
+                    name: "Min",
+                    y: {{minimum}},
+                },
+                {
+                    name: "Moy",
+                    y: {{moyenne}},
+                },
+                {
+                    name: "Max",
+                    y: {{maximum}},
+                },
+            ]
+        }
+    ],
+})
+// Radialize the colors
+Highcharts.setOptions({
+    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: {
+                cx: 0.5,
+                cy: 0.3,
+                r: 0.7
+            },
+            stops: [
+                [0, color],
+                [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    })
+});
+
+// Build the chart
+var pie = Highcharts.chart('containerP', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Repartition de notes'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                connectorColor: 'silver'
+            }
+        }
+    },
+    series: [{
+        name: 'Note',
+        data: [
+            { name: '0 - 600', y: {{pourcent0_600}} },
+            { name: '600 - 780', y: {{pourcent600_780}} },
+            { name: '780 - 820', y: {{pourcent780_820}} },
+            { name: '820 - 900', y: {{pourcent820_900}} },
+            { name: '900 - 990', y: {{pourcent900_990}} },
+        ]
+    }]
+});
+});
+ </script>
          
     </div> 
 </div> 

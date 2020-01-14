@@ -1425,13 +1425,19 @@ def stats_par_sujet_prof(request,idSujet):
         return render(request, 'error404.html')
     else:
         corr = Corriger.objects.filter(numSujetProf = idSujet)
+        nomS = Sujet.objects.get(numSujet= idSujet).nomSujet
+        listeReading = []
+        listeListening = []
+        listeFinale = []
+        cpt0_600 = 0
+        cpt600_780 =0
+        cpt780_820 = 0
+        cpt820_900 = 0
+        cpt900_990 = 0
         for l in corr : 
-
             partieReading = PartieSujet.objects.filter(numSujet= l.numSujetEtu,nomPartie = "Reading")
             partieListening = PartieSujet.objects.filter(numSujet= l.numSujetEtu,nomPartie = "Listening")
-            listeReading = []
-            listeListening = []
-            listeFinale = []
+            
 
             for i in partieReading :
                 listeReading.append(i.notePartie)
@@ -1442,8 +1448,23 @@ def stats_par_sujet_prof(request,idSujet):
                 
             for k in range(0,len(listeListening)):
                 listeFinale.append(listeListening[k] + listeReading[k])
+        for k in range(0, len(listeFinale)):
+            if listeFinale[k] <600 :
+                cpt0_600+=1
+            elif 600 <= listeFinale[k] < 780:
+                cpt600_780+=1
+            elif 780 <= listeFinale[k] < 820:
+                cpt780_820+=1
+            elif 820 <= listeFinale[k] < 900:
+                cpt820_900+=1
+            elif listeFinale[k] >= 900:
+                cpt900_990+=1        
 
-        
+        pourcent0_600 = cpt0_600/len(listeListening) * 100
+        pourcent600_780 = cpt600_780/len(listeListening) * 100
+        pourcent780_820 = cpt780_820/len(listeListening) * 100
+        pourcent820_900 = cpt820_900/len(listeListening) * 100
+        pourcent900_990 = cpt900_990/len(listeListening) * 100
         moyenne = numpy.mean(listeFinale)
         minimum = numpy.amin(listeFinale)
         maximum = numpy.amax(listeFinale)
@@ -1495,44 +1516,3 @@ def stats_par_partie_prof(request):
         
         return render(request, 'stats_par_partie_prof.html', locals())
 
-@login_required
-def stats_par_sujet_prof(request,idSujet):
-    if request.session['estEtu']:
-        return render(request, 'error404.html')
-    else:
-        partieReading = PartieSujet.objects.filter(numSujet= idSujet)
-        partieListening = PartieSujet.objects.filter(numSujet= idSujet,nomPartie = "Listening")
-        listeReading = []
-        listeListening = []
-        listeFinale = []
-
-        for i in partieReading :
-            listeReading.append(i.notePartie)
-            
-
-        for j in partieListening :
-            listeListening.append(j.notePartie)
-            
-        for k in range(0,len(listeListening)):
-            listeFinale.append(listeListening[k] + listeReading[k])
-
-        
-        moyenne = numpy.mean(listeFinale)
-        minimum = numpy.amin(listeFinale)
-        maximum = numpy.amax(listeFinale)
-
-
-        return render(request, 'stats_par_sujet_prof.html', locals())
-
-@login_required
-def liste_sujet_prof(request,):
-    if request.session['estEtu']:
-        return render(request, 'error404.html')
-    else :
-        listeSujet = Corriger.objects.all()
-
-
-
-
-
-    return render(request, 'liste_sujet_prof.html', locals())
