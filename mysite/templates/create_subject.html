@@ -2,16 +2,18 @@
 
 {% block title %}Creation Sujet{% endblock %}
 {% block content %}
-<button onclick="timer()">Start count!</button>
-    <input type="text" id="txt">
 
-<button onclick="stopCount()">Stop count!</button>
 
+<body onload="timer()">
+<h3>Temps restant :<a id="demo"></a></h3>
+
+{{}}
 <form method="post" action="">
     {% csrf_token %}
 
 
     <div class="container">
+
         {% for quest in form %}
 
 
@@ -58,7 +60,45 @@
 
 
 </form>
+<script>
+    function timer(){
+    const start = Date.now();
 
+    var t;
+
+
+     var fin = start + 11500;
+     timedCount();
+
+
+
+
+    function timedCount() {
+      var ptmp = new Date();
+      var tempRest = fin - ptmp
+      var diff = new Date(tempRest)
+      diff.setHours(diff.getHours() - 1)
+      var d = diff.toLocaleTimeString();
+      if (tempRest > 0){
+        document.getElementById("demo").innerHTML = d;
+
+      }
+      else {
+        document.getElementById("demo").innerHTML = "Terminé !!";
+        document.location.href="http://127.0.0.1:8000/";
+
+      }
+
+
+      t = setTimeout(timedCount, 1);
+
+
+
+
+    }
+}
+</script>
+</body>
 
 
 {% endblock %}
