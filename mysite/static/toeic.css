@@ -71,3 +71,11 @@ td:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+.form-horizontal{
+  border: 1px solid #ddd;
+}
+
+.btn.btn-primary{
+  margin-top: 5px
+}
+
