@@ -1,7 +1,11 @@
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body {
   overflow-x : hidden;
-  margin : 0;
-  margin-bottom: 50px;
+  margin : 0 0 50px;
   background-size: 100%;
   }
 
@@ -48,7 +52,7 @@ body {
 }
 
 .footer{
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
@@ -56,7 +60,8 @@ body {
   width: 100%;
   bottom: 0pt;
   left: 0pt;
-  margin-bottom: 0;
+  height: 50px;
+  margin: 0 auto;
   text-align: center;
   background: #D0E4F5;
 }
