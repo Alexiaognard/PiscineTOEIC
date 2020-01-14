@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="recapitulation">
+    <div class="collection with-header">
+    	
+ 
+        
+           
+        	<ul>
+        		<li>La note maximale pour ce sujet est : {{maximum}}</li>
+        		<li>La note minimale pour ce sujet est : {{minimum}}</li>
+                <li>La moyenne pour ce sujet est : {{moyenne}}</li>
+                <li> {{listeFinale}}</li>
+                <li>{{listeReading}}</li>
+                <li>{{listeListening}}</li>
+                <li>{{partieReading}}</li>
+                <li>{{partieListening}}</li>
+
+             </ul>
+
+		
+		
+
+        
+    </div>
+</div>
+
+{% endblock %}

@@ -54,3 +54,20 @@
   background: #D0E4F5;
   margin-top: 20px; 
 }
+
+.table-striped{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th{
+  text-align: left;
+  padding: 16px;
+}
+
+td:nth-child(even) {
+  background-color: #f2f2f2;
+}
+

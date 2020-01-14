@@ -2,16 +2,33 @@
 
 {% block content %}
 
-<h3> Mes sujets:</h3>
-
-<ul>
+<h3> Mes sujets :</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">N° de sujet</th>
+      <th scope="col">Note</th>
+      <th scope="col">Voir mes réponses</th>
+    </tr>
+  </thead>
+    <tbody>
     {% for i in listSujetEtu %}
-    <li>Sujet n°: {{ i.numSujet }} <a href="http://127.0.0.1:8000/read/subject/{{i.numSujet}}"> Voir le sujet</a></li>
+
+
+    <tr>
+
+      <td>{{ i.numSujet }}</td>
+      <td>{{ i.numSujet }}</td>
+      <td><a href="http://127.0.0.1:8000/read/subject/{{i.numSujet}}">Mes réponses</a></td>
+    </tr>
 
 
     {% endfor %}
+  </tbody>
 
-
-</ul>
+</table>
 
 {% endblock %}
+
+
+

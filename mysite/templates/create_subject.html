@@ -2,10 +2,15 @@
 
 {% block title %}Creation Sujet{% endblock %}
 {% block content %}
+<button onclick="timer()">Start count!</button>
+    <input type="text" id="txt">
+
+<button onclick="stopCount()">Stop count!</button>
 
 <form method="post" action="">
     {% csrf_token %}
-    
+
+
     <div class="container">
         {% for quest in form %}
 
@@ -13,7 +18,7 @@
 
         <legend class="col-form-label col-sm-2 pt-0">{{ quest.label_tag }}</legend>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="{{ quest.label }}" id="inlineRadio1" value="A" checked>
+          <input class="form-check-input" type="radio" name="{{ quest.label }}" id="inlineRadio1" value="A" >
           <label class="form-check-label" for="inlineRadio1">A</label>
         </div>
         <div class="form-check form-check-inline">
@@ -31,7 +36,7 @@
 
 
 
-{% endfor %}
+        {% endfor %}
           </div>
 
 
