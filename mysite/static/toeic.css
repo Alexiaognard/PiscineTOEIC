@@ -1,6 +1,7 @@
 body {
   overflow-x : hidden;
   margin : 0;
+  margin-bottom: 50px;
   background-size: 100%;
   }
 
@@ -47,17 +48,17 @@ body {
 }
 
 .footer{
+  position: fixed;
   display: flex;
   align-items: stretch;
   justify-content: space-between;
   border: 3px solid #1C6EA4;
-  
-  height: 40px;
-  bottom: 0;
   width: 100%;
+  bottom: 0pt;
+  left: 0pt;
+  margin-bottom: 0;
   text-align: center;
   background: #D0E4F5;
-  margin-top: 10px; 
 }
 
 
