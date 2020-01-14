@@ -4,13 +4,18 @@
 
 <div class="recapitulation">
     <div class="collection with-header">
-        <h3> Nom Sujet : {{ sub.nomSujet }} </h3><br>
+        {% if not request.session.estEtu %}
+        <h5>Num Sujet : {{sub.numSujet}}</h5>
+            {% endif %}
+        <h3>Nom Sujet : {{ sub.nomSujet }} </h3><br>
         <h3>Mdp Sujet : {{sub.mdpSujet }}<h3><br>
 
         <ul>
-            <li>Num Sujet : {{sub.numSujet}}</li>
-            <li>REPONSES</li>
+
             {% for field in questions %}
+
+            
+            <h3>Listening : </h3>
             <li>
               {{ field.nomQuestion }} : {{ field.reponseQuestion }}
 

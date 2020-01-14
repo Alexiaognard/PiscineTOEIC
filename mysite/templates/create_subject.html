@@ -5,9 +5,8 @@
 
 
 <body onload="timer()">
-<h3>Temps restant :<a id="demo"></a></h3>
+<h3>Temps restant : <a id="demo"></a></h3>
 
-{{}}
 <form method="post" action="">
     {% csrf_token %}
 
@@ -15,8 +14,6 @@
     <div class="container">
 
         {% for quest in form %}
-
-
 
         <legend class="col-form-label col-sm-2 pt-0">{{ quest.label_tag }}</legend>
         <div class="form-check form-check-inline">
@@ -42,18 +39,8 @@
           </div>
 
 
-
-
-
-
-
-
-
-
-
-
     <div class=" col m-3">
-        <button class="btn btn-primary" type="submit">Submit form</button>
+        <button class="btn btn-primary" type="submit">Submit subject</button>
     </div>
 
 
@@ -67,7 +54,7 @@
     var t;
 
 
-     var fin = start + 11500;
+     var fin = start + 7200000;
      timedCount();
 
 
@@ -85,7 +72,8 @@
       }
       else {
         document.getElementById("demo").innerHTML = "Terminé !!";
-        document.location.href="http://127.0.0.1:8000/";
+        document.location.href="http://127.0.0.1:8000/corriger/{{sub.numSujet}}";
+
 
       }
 

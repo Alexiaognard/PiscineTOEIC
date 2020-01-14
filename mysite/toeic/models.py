@@ -69,22 +69,6 @@ class Sujet(models.Model):
     class Meta:
         db_table = 'sujet'
 
-class SessionToeic(models.Model):
-    numSession = models.AutoField(primary_key=True)
-    dateSession = models.DateTimeField(auto_now=False, auto_now_add=False)
-
-    class Meta:
-        db_table = 'sessiontoeic'
-
-class Correspondre(models.Model):
-    numSujet = models.ForeignKey(Sujet, on_delete=models.CASCADE, db_column='numSujet')
-    numSession = models.ForeignKey(SessionToeic, on_delete=models.CASCADE, db_column='numSession')
-
-
-    class Meta:
-        db_table = 'correspondre'
-        unique_together = ('numSession','numSujet')
-
 class PartieSujet(models.Model):
     numPartie = models.AutoField(primary_key=True)
     nomPartie = models.CharField(blank=True, max_length=10)
@@ -145,6 +129,7 @@ QUESTION_CHOICES = [
         ('B', 'B'),
         ('C', 'C'),
         ('D', 'D'),
+        ('E','E'),
 
     ]
 
