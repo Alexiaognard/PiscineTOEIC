@@ -1974,6 +1974,7 @@ def stats_classe_prof(request,numClasse):
     if request.session['estEtu']:
         return render(request, 'error404.html')
     else :
+        classe = Classe.objects.get(numClasse=numClasse)
         etudiantsC = Etudiant.objects.filter(classeEtu = numClasse)
         listeNumEtu = []
         listeNumSujets = []

@@ -2,13 +2,53 @@
 
 {% block content %}
 
-<h3> Classes :</h3>
-<table class="table table-striped">
+<h3> Liste des classes :</h3>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="#">Statistiques</a></li>
+    <li class="breadcrumb-item active" aria-current="page">par Classe</li>
+  </ol>
+</nav>
+
+<div class=" text-center">
+
+        <table class="table table-striped">
+
+  <thead>
+
+
+    <tr>
+      <th scope="col">Nom de la Classe : </th>
+        <th scope="col">Voir les Stats </th>
+    </tr>
+  </thead>
+    <tbody>
+{% for i in listeClasse %}
+
+    <tr>
+
+        <td>{{ i.nomClasse }}</td>
+        <td><a href="http://127.0.0.1:8000/statsClasses/{{i.numClasse}}">Voir les statistiques</a></td>
+
+    </tr>
+
+
+    {% endfor %}
+
+
+
+
+
+  </tbody>
+
+
+</table>
+        </div>
   
     
-      {% for i in listeClasse %}
-      <li scope="col">{{ i.nomClasse }}</li> <a href="http://127.0.0.1:8000/statsClasses/{{i.numClasse}}">Voir les statistiques</a>
-      {% endfor %}
+
     
   
     
