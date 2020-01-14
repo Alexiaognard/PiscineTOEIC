@@ -3,10 +3,12 @@
 {% block content %}
 
 <h3> Mes sujets :</h3>
+
+{% if request.session.estEtu %}
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">N° de sujet</th>
+      <th scope="col">Nom du sujet</th>
       <th scope="col">Note</th>
       <th scope="col">Voir mes réponses</th>
     </tr>
@@ -17,8 +19,9 @@
 
     <tr>
 
-      <td>{{ i.numSujet }}</td>
-      <td>{{ i.numSujet }}</td>
+
+      <td>{{ i.nomSujet }} {{ forloop.counter0 }}</td>
+      <td>ListeNote[{{ forloop.counter0 }}]/990</td>
       <td><a href="http://127.0.0.1:8000/read/subject/{{i.numSujet}}">Mes réponses</a></td>
     </tr>
 
@@ -27,6 +30,31 @@
   </tbody>
 
 </table>
+{% else %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Nom du sujet</th>
+      <th scope="col">Voir les réponses</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for i in listSujetProf %}
+
+
+    <tr>
+
+
+      <td>{{ i.nomSujet }} </td>
+      <td><a href="http://127.0.0.1:8000/read/subject/{{i.numSujet}}">Réponses</a></td>
+    </tr>
+
+
+    {% endfor %}
+  </tbody>
+
+</table>
+{% endif %}
 
 {% endblock %}
 

@@ -3,9 +3,11 @@
 {% block title %}Creation Sujet{% endblock %}
 {% block content %}
 
-
+{% if  request.session.estEtu %}
 <body onload="timer()">
 <h3>Temps restant : <a id="demo"></a></h3>
+
+{% endif %}
 
 <form method="post" action="">
     {% csrf_token %}

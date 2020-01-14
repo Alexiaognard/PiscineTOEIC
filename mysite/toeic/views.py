@@ -624,9 +624,11 @@ def read_subject_prof(request,idSujet):
 
 def read_subject(request,idSujet):
     sub = Sujet.objects.get(numSujet=idSujet)
-    parties = PartieSujet.objects.filter(numSujet=sub.numSujet)
+    print(sub)
+    parties = PartieSujet.objects.filter(numSujet=sub)
     reading = []
     listening = []
+    print(parties)
     sp1=SousPartie.objects.filter(numPartie=parties[0].numPartie)
 
     for sousp in sp1:
@@ -1687,18 +1689,31 @@ def lire_sujets(request):
     if request.session['estEtu']:
             userEtu = Etudiant.objects.get(numEtu=request.user.id)
 
-            liste = FaireSujet.objects.filter(numEtu=userEtu)
-
-
-
-            for i in liste :
+            listeSuj = FaireSujet.objects.filter(numEtu=userEtu)
+            listeNote = []
+            for i in listeSuj :
                 listSujetEtu.append(i.numSujet)
+
 
                 try:
                     sujetProf = Corriger.objects.get(numSujetEtu=i.numSujet)
                     listSujetProf.append(sujetProf)
+                    part = PartieSujet.objects.filter(numSujet=numSujetEtu)
+                    noteL = part[0].notePartie
+                    noteR = part[1].notePartie
+                    listeNote.append(noteL+noteR)
+
+
                 except:
-                    listSujetProf
+                    listSujetProf.append(0)
+                    listeNote.append("A Corriger")
+    else:
+        userProf = Professeur.objects.get(numProf=request.user.id)
+        listeSuj = Proposer.objects.filter(numProf=userProf)
+        for i in listeSuj:
+            listSujetProf.append(i.numSujet)
+
+
 
 
 
