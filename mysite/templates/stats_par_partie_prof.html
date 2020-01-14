@@ -2,6 +2,13 @@
 
 {% block content %}
 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 <div class="recapitulation">
     <div class="collection with-header">
     	
@@ -23,10 +30,131 @@
              </ul>
 
 		
-		
+<figure class="highcharts-figure">
+    <div id="Lcontainer"></div>
+</figure>
+<script>
+document.addEventListener('DOMContentLoaded', function(){    
+var chart = Highcharts.chart('containerBar', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Taux de réussite au TOEIC'
+    },
+    
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: ""
+        }
 
-        
-    </div>
-</div>
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}'
+            }
+        }
+    },
 
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Sujet",
+            colorByPoint: true,
+            data: [
+                {
+                    name: "Taux d'échec",
+                    y: {{pourcentPasToeic}},
+                },
+                {
+                    name: "Taux de réussite",
+                    y: {{pourcentToeic}},
+                },
+                
+            ]
+        }
+    ],
+})
+// Radialize the colors
+Highcharts.setOptions({
+    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: {
+                cx: 0.5,
+                cy: 0.3,
+                r: 0.7
+            },
+            stops: [
+                [0, color],
+                [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    })
+});
+
+// Build the chart
+var Lpie = Highcharts.chart('Lcontainer', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Repartition de notes Listening'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                connectorColor: 'silver'
+            }
+        }
+    },
+    series: [{
+        name: 'Note',
+        data: [
+            { name: '0 - 600', y: {{Lpourcent0_200}} },
+            { name: '600 - 780', y: {{Lpourcent200_350}} },
+            { name: '780 - 820', y: {{Lpourcent350_495}} },
+            
+        ]
+    }]
+});
+});
+
+
+ </script>
+ 
+ </div> 
+</div> 
 {% endblock %}

@@ -1883,12 +1883,58 @@ def stats_par_partie_prof(request):
                 else :
                     notesListening.append(i.notePartie)
 
-        moyListening = numpy.mean(notesListening)
-        moyReading = numpy.mean(notesReading)
-        maxReading = numpy.amax(notesReading)
-        minReading = numpy.amin(notesReading)
-        maxListening = numpy.amax(notesListening)
-        minListening = numpy.amin(notesListening)
+        Rcpt0_200 = 0
+        Rcpt200_350 =0
+        Rcpt350_495 = 0
+        Lcpt0_200 = 0
+        Lcpt200_350 =0
+        Lcpt350_495 = 0
+        for j in range(0, len(notesReading)):
+            if notesReading[j] <200 :
+                Rcpt0_200+=1
+            elif 200 <= notesReading[j] < 350:
+                Rcpt200_350+=1
+            elif 350 <= notesReading[j] < 495:
+                Rcpt350_495+=1
+           
+
+
+        for j in range(0, len(notesListening)):
+            if notesListening[j] <200 :
+                Lcpt0_200+=1
+            elif 200 <= notesListening[j] < 350:
+                Lcpt200_350+=1
+            elif 300 <= notesListening[j] < 495:
+                Lcpt350_495+=1
+
+        if len(notesListening)>0 :
+
+            maxListening = numpy.amax(notesListening)
+            minListening = numpy.amin(notesListening)
+            moyListening = numpy.mean(notesListening)
+
+
+        if len(notesReading)>0 :
+            moyReading = numpy.mean(notesReading)
+            maxReading = numpy.amax(notesReading)
+            minReading = numpy.amin(notesReading)
+
+        Rpourcent0_200 = 0
+        Rpourcent200_350 = 0
+        Rpourcent350_495 = 0
+
+        if len(notesReading)>0 :
+            Rpourcent0_200 = Rcpt0_200/len(notesReading) * 100
+            Rpourcent200_35 = Rcpt200_350/len(notesReading) * 100
+            Rpourcent350_495 = Rcpt350_495/len(notesReading) * 100
+
+        Lpourcent0_200 = 0
+        Lpourcent200_350 = 0
+        Lpourcent350_495 = 0
+        if len(notesListening)>0 :
+            Lpourcent0_200 = Lcpt0_200/len(notesListening) * 100
+            Lpourcent200_350 = Lcpt200_350/len(notesListening) * 100
+            Lpourcent350_495 = Lcpt350_495/len(notesListening) * 100
         
         return render(request, 'stats_par_partie_prof.html', locals())
 
