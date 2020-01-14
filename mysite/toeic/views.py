@@ -624,14 +624,20 @@ def read_subject_prof(request,idSujet):
 
 def read_subject(request,idSujet):
     sub = Sujet.objects.get(numSujet=idSujet)
-    questions=[]
     parties = PartieSujet.objects.filter(numSujet=sub.numSujet)
-    for part in parties:
-        sp=SousPartie.objects.filter(numPartie=part.numPartie)
-        for sousp in sp:
-            quest = Question.objects.filter(numSousPartie=sousp.numSousPartie)
-            for q in quest :
-                questions.append(q)
+    reading = []
+    listening = []
+    sp1=SousPartie.objects.filter(numPartie=parties[0].numPartie)
+
+    for sousp in sp1:
+        quest = Question.objects.filter(numSousPartie=sousp.numSousPartie)
+        for q in quest :
+            listening.append(q)
+    sp2 = SousPartie.objects.filter(numPartie=parties[1].numPartie)
+    for sousp in sp2:
+        quest = Question.objects.filter(numSousPartie=sousp.numSousPartie)
+        for q in quest :
+            reading.append(q)
 
     return render (request, 'read_subject.html', locals())
 

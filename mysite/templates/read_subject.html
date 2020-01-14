@@ -4,29 +4,91 @@
 
 <div class="recapitulation">
     <div class="collection with-header">
+
         {% if not request.session.estEtu %}
-        <h5>Num Sujet : {{sub.numSujet}}</h5>
+        <h3>Num Sujet : {{sub.numSujet}}</h3>
+        <h5>Mdp Sujet : {{sub.mdpSujet }}<h5><br>
             {% endif %}
-        <h3>Nom Sujet : {{ sub.nomSujet }} </h3><br>
-        <h3>Mdp Sujet : {{sub.mdpSujet }}<h3><br>
+        <h5>Nom Sujet : {{ sub.nomSujet }} </h5><br>
 
-        <ul>
 
-            {% for field in questions %}
+            <div class="container">
+                <div class="row">
+                     <div class="col">
+                <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Listening</th>
+    </tr>
+  </thead>
+    <tbody>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Question</th>
+      <th scope="col">Reponse</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for i in listening %}
 
-            
-            <h3>Listening : </h3>
-            <li>
-              {{ field.nomQuestion }} : {{ field.reponseQuestion }}
 
-            </li>
-            {% endfor %}
+    <tr>
 
-        </ul>
-            {% if not request.session.estEtu %}
-            <a href="{% url 'create_session' %}" >Créer une session</a>
-            {% else %}
-            <a href="http://127.0.0.1:8000/corriger/{{sub.numSujet}}">Corriger le sujet</a>
+      <td>{{ i.nomQuestion }}</td>
+      <td>{{ i.reponseQuestion }}</td>
+    </tr>
+
+
+    {% endfor %}
+  </tbody>
+
+
+</table>
+            </div>
+<div class ="col">
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Reading</th>
+    </tr>
+  </thead>
+    <tbody>
+    <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Question</th>
+      <th scope="col">Reponse</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for i in reading %}
+
+
+    <tr>
+
+      <td>{{ i.nomQuestion }}</td>
+      <td>{{ i.reponseQuestion }}</td>
+    </tr>
+
+
+    {% endfor %}
+  </tbody>
+
+
+</table>
+
+
+</div>
+
+                </div>
+            </div>
+
+            {% if  request.session.estEtu %}
+            <div class="mx-auto" style="width: 200px;">
+                <a class="btn btn-primary" href="http://127.0.0.1:8000/corriger/{{sub.numSujet}}">Corriger le sujet</a>
+            </div>
+
             {% endif %}
 
     </div>
