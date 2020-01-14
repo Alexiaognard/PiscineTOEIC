@@ -1446,3 +1446,45 @@ def stats_par_partie_prof(request,):
         moyListening = numpy.mean(notesListening)
         
         return render(request, 'stats_par_partie_prof.html', locals())
+
+@login_required
+def stats_par_sujet_prof(request,idSujet):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+        partieReading = PartieSujet.objects.filter(numSujet= idSujet)
+        partieListening = PartieSujet.objects.filter(numSujet= idSujet,nomPartie = "Listening")
+        listeReading = []
+        listeListening = []
+        listeFinale = []
+
+        for i in partieReading :
+            listeReading.append(i.notePartie)
+            
+
+        for j in partieListening :
+            listeListening.append(j.notePartie)
+            
+        for k in range(0,len(listeListening)):
+            listeFinale.append(listeListening[k] + listeReading[k])
+
+        
+        moyenne = numpy.mean(listeFinale)
+        minimum = numpy.amin(listeFinale)
+        maximum = numpy.amax(listeFinale)
+
+
+        return render(request, 'stats_par_sujet_prof.html', locals())
+
+@login_required
+def liste_sujet_prof(request,):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else :
+        listeSujet = Corriger.objects.all()
+
+
+
+
+
+    return render(request, 'liste_sujet_prof.html', locals())
