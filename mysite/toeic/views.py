@@ -1926,12 +1926,15 @@ def stats_par_partie_prof(request):
         if len(notesListening)>0 :
 
             maxListening = numpy.amax(notesListening)
+            moy = numpy.mean(notesListening)
             minListening = numpy.amin(notesListening)
-            moyListening = numpy.mean(notesListening)
+            moyListening = numpy.around(moy,decimals=2)
+
 
 
         if len(notesReading)>0 :
-            moyReading = numpy.mean(notesReading)
+            moy = numpy.mean(notesReading)
+            moyReading = numpy.around(moy,decimals=2)
             maxReading = numpy.amax(notesReading)
             minReading = numpy.amin(notesReading)
 
