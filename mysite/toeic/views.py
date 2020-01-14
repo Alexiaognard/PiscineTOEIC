@@ -1491,7 +1491,6 @@ def stats_par_partie_prof(request):
         minReading = numpy.amin(notesReading)
         maxListening = numpy.amax(notesListening)
         minListening = numpy.amin(notesListening)
-        return render(request, 'stats_par_partie_prof.html', locals())
         
         return render(request, 'stats_par_partie_prof.html', locals())
 
