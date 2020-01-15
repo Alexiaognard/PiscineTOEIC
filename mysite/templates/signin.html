@@ -1,7 +1,46 @@
 {% extends 'index.html' %}
 
 {% block title %}Connexion{% endblock %}
+
+
+
 {% block content %}
+<style>
+div {
+  border-radius: 50px;
+  padding: 20px;
+  border-color : blue;
+}
+formulaire{
+  justify-content:center;
+  display: flex;
+  width: 40%
+  margin: 20px 10px
+  border-radius : 50px;
+  border-color : black;
+  border-width : 20px;
+
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 0px 0px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 0px 0px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+}
+</style>
 
 <div class="page">
   <div class = "formulaire">
@@ -23,3 +62,4 @@
 </div>
 
 {% endblock %}
+

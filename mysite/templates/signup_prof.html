@@ -2,7 +2,68 @@
 
 {% block title %}Création d'un compte Professeur{% endblock %}
 {% block content %}
-<div class="page">
+<style>
+div {
+  border-radius: 50px;
+  padding: 20px;
+  border-color : blue;
+}
+
+page1{
+  justify-content:center;
+  display: flex;
+  width: 40%
+  margin: 20px 10px
+  border-radius : 50px;
+  border-color : black;
+  border-width : 20px;
+  background-color : #26C4EC
+
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 0px 0px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+
+}
+
+input[type=password] {
+  width: 100%;
+  padding: 0px 0px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+}
+
+input[type=email] {
+  width: 100%;
+  padding: 0px 0px;
+  margin: 20px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+}
+
+
+.boutonForm{
+  width: 50%;
+  background-color: #26C4EC;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+</style>
+
+<div class="page1">
   <div class = "formulaire">
       <form method="post" action="">
       {% csrf_token %}
@@ -21,7 +82,7 @@
               </div>
           {% endfor %}
           <div class="boutonForm">
-            <button class="btn purple" type="submit" >Créer un compte</button>
+            <button class="btn" type="submit" >Créer un compte</button>
           </div>
       </form>
   </div>

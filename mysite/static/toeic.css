@@ -56,13 +56,22 @@ body {
 .nav-wrapper form {
 	display: flex;
 }
+.input[type=text] {
+  width: 100%;
+  padding: 12px 0px;
+  margin: 20px 0;
+  box-sizing: border-box;
 
+  border-color : blue;
+}
 .formulaire {
   justify-content:center;
   display: flex;
+  width: 40%
+  margin: 20px 10px
   border-radius : 50px;
-  border-color : black;
-  border-width : 5px;
+  border-color : blue;
+  border-width : 10px;
 }
 
 .justify-content-center{
@@ -78,7 +87,7 @@ body {
   bottom: 0pt;
   left: 0pt;
   height: 50px;
-  margin: 0 auto;
+  margin: 0 0 50px;
   text-align: center;
   background: #0275d8;
 }
