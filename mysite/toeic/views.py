@@ -2017,6 +2017,7 @@ def listeclasse(request):
         for i in Classes :
             listeClasse.append(i)
 
+
     return render(request, 'listeClasse.html', locals())
 
 @login_required
@@ -2111,7 +2112,6 @@ def stats_par_partie_etu(request):
         return render(request, 'error404.html')
     else:
         
-
         listeSujet = []
         f = FaireSujet.objects.filter(numEtu = request.user.id)
 
@@ -2185,3 +2185,99 @@ def stats_par_partie_etu(request):
             Lpourcent350_495 = Lcpt350_495/len(notesListening) * 100
         
         return render(request, 'stats_par_partie_etu.html', locals())
+
+
+@login_required
+def stats_par_partie_etu_prof(request,idEtu):
+    if  request.session['estEtu']:
+        return render(request, 'error404.html')
+    else:
+
+        
+        listeSujet = []
+        f = FaireSujet.objects.filter(numEtu = idEtu)
+
+        for i in f :
+            listeSujet.append(i.numSujet)
+        
+        parties = []
+        notesListening = []
+        notesReading = []
+        parties = PartieSujet.objects.filter(numSujet__in=listeSujet)
+        for i in parties :
+                if (i.nomPartie == "Reading") :
+                    notesReading.append(i.notePartie)
+                else :
+                    notesListening.append(i.notePartie)
+
+        Rcpt0_200 = 0
+        Rcpt200_350 =0
+        Rcpt350_495 = 0
+        Lcpt0_200 = 0
+        Lcpt200_350 =0
+        Lcpt350_495 = 0
+        for j in range(0, len(notesReading)):
+            if notesReading[j] <200 :
+                Rcpt0_200+=1
+            elif notesReading[j] < 350:
+                Rcpt200_350+=1
+            else:
+                Rcpt350_495+=1
+           
+
+
+        for j in range(0, len(notesListening)):
+            if notesListening[j] <200 :
+                Lcpt0_200+=1
+            elif 200 <= notesListening[j] < 350:
+                Lcpt200_350+=1
+            else:
+                Lcpt350_495+=1
+
+        if len(notesListening)>0 :
+
+            maxListening = numpy.amax(notesListening)
+            moy = numpy.mean(notesListening)
+            minListening = numpy.amin(notesListening)
+            moyListening = numpy.around(moy,decimals=2)
+
+
+
+        if len(notesReading)>0 :
+            moy = numpy.mean(notesReading)
+            moyReading = numpy.around(moy,decimals=2)
+            maxReading = numpy.amax(notesReading)
+            minReading = numpy.amin(notesReading)
+
+        Rpourcent0_200 = 0
+        Rpourcent200_350 = 0
+        Rpourcent350_495 = 0
+
+        if len(notesReading)>0 :
+            Rpourcent0_200 = Rcpt0_200/len(notesReading) * 100
+            Rpourcent200_35 = Rcpt200_350/len(notesReading) * 100
+            Rpourcent350_495 = Rcpt350_495/len(notesReading) * 100
+
+        Lpourcent0_200 = 0
+        Lpourcent200_350 = 0
+        Lpourcent350_495 = 0
+        if len(notesListening)>0 :
+            Lpourcent0_200 = Lcpt0_200/len(notesListening) * 100
+            Lpourcent200_350 = Lcpt200_350/len(notesListening) * 100
+            Lpourcent350_495 = Lcpt350_495/len(notesListening) * 100
+        
+        return render(request, 'stats_par_partie_etu_prof.html', locals())
+
+
+@login_required
+def listeEtuClasse(request,numClasse):
+    if request.session['estEtu']:
+        return render(request, 'error404.html')
+    else :
+        listeEtudiant =[]
+        etudiants = Etudiant.objects.filter(classeEtu = numClasse)
+        for i in etudiants :
+            listeEtudiant.append(i)
+        
+
+    return render(request, 'listeEtuClasse.html', locals())

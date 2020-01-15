@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+<div class=" text-center">
+
+        <table class="table table-striped">
+
+  <thead>
+
+
+    <tr>
+      <th scope="col">Nom des Etudiants: </th>
+    </tr>
+  </thead>
+    <tbody>
+{% for i in listeEtudiant %}
+
+    <tr>
+
+        <td>{{ i.numEtu }}</td>
+        <td><a href="http://127.0.0.1:8000/stats_par_partie_etu_prof/{{i.numEtu}}">Voir les statistiques de l'Etudiant</a></td>
+
+    </tr>
+
+
+    {% endfor %}
+
+
+
+
+
+  </tbody>
+
+
+</table>
+        </div>
+  
+    
+
+    
+  
+    
+  </tbody>
+</table>
+
+{% endblock %}
