@@ -105,7 +105,7 @@ def login_user(request):
 #---------------- Vue de déconnexion  ----------------
 def logout_user(request):
     logout(request)
-    return render(request, 'index.html')
+    return render(request, 'homepage.html')
 
 
 #---------------- Vue mon compte ---------------------
