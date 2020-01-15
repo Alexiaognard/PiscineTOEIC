@@ -2,7 +2,14 @@
 
 {% block content %}
 
-
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'stats' %}">Statistiques</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'listeClasse' %}">par Classe</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{classe.nomClasse}} {{classe.promoClasse}}</li>
+  </ol>
+</nav>
 <div class=" text-center">
 
         <table class="table table-striped">
@@ -19,8 +26,8 @@
 
     <tr>
 
-        <td>{{ i.numEtu }}</td>
-        <td><a href="http://127.0.0.1:8000/stats_par_partie_etu_prof/{{i.numEtu}}">Voir les statistiques de l'Etudiant</a></td>
+        <td>{{ i.first_name }}  {{ i.last_name }}</td>
+        <td><a href="http://127.0.0.1:8000/stats_par_partie_etu_prof/{{i.username}}">Voir les statistiques de l'Etudiant</a></td>
 
     </tr>
 

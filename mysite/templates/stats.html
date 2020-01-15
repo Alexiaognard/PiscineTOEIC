@@ -14,7 +14,7 @@
                         {% if request.session.estEtu %}
                           <a href="{% url 'voir_sujet' %}" class="btn btn-info">Voir mes stats</a>
                         {% else %}
-                      <a href="{% url 'liste_sujet_prof' %}" class="btn btn-info">Voir mes stats</a>
+                      <a href="{% url 'liste_sujet_prof' %}" class="btn btn-info">Voir les stats</a>
                         {% endif %}
                     </div>
                 </div>
@@ -25,10 +25,10 @@
                         <h5 class="card-title">Stats par partie</h5>
                         {% if request.session.estEtu %}
 
-                          <a href="#" class="btn btn-info">Voir mes stats</a>
+                          <a href="{% url 'stats_par_partie_etu' %}" class="btn btn-info">Voir mes stats</a>
                         {% else %}
 
-                          <a href="{% url 'stats_par_partie_prof' %}" class="btn btn-info">Voir mes stats</a>
+                          <a href="{% url 'stats_par_partie_prof' %}" class="btn btn-info">Voir les stats</a>
                         {% endif %}
                   </div>
                 </div>
@@ -54,7 +54,7 @@
                         <h5 class="card-title">Stats par élèves</h5>
 
 
-                          <a href="{% url 'listeClasse' %}" class="btn btn-info">Voir les stats</a>
+                          <a href="{% url 'listeEtu' %} " class="btn btn-info">Voir les stats</a>
 
                   </div>
                 </div>

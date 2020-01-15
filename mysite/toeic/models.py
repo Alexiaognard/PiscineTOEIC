@@ -65,6 +65,7 @@ class Sujet(models.Model):
     numSujet = models.AutoField(primary_key=True)
     nomSujet = models.CharField(blank=True, max_length=20)
     mdpSujet = models.CharField(blank=True, max_length=20)
+    noteSujet= models.IntegerField(blank=True,validators=[MinValueValidator(0), MaxValueValidator(990)],default=0)
 
     class Meta:
         db_table = 'sujet'
@@ -108,12 +109,6 @@ class Posseder(models.Model):
         unique_together = ('numSousPartie', 'numPartie')
 
 
-class Travailler(models.Model):
-    numEtu = models.ForeignKey(Etudiant, on_delete=models.CASCADE, db_column='numEtu')
-    numSujet = models.ForeignKey(Sujet, on_delete=models.CASCADE, db_column='numSujet')
-
-    class Meta:
-        db_table = 'travailler'
 
 class Proposer(models.Model):
     numProf = models.ForeignKey(Professeur, on_delete=models.CASCADE, db_column='numProf')

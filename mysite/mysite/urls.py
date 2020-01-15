@@ -51,5 +51,6 @@ urlpatterns = [
     path('stats', views.stats, name='stats'),
     path('stats_par_partie_etu_prof/<str:idEtu>', views.stats_par_partie_etu_prof, name='stats_par_partie_etu_prof'),
     path('listeEtuClasse/<int:numClasse>', views.listeEtuClasse, name='listeEtuClasse'),
+    path('listeEtu', views.listeEtu, name='listeEtu')
    
 ]

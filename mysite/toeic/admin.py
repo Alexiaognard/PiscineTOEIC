@@ -11,3 +11,6 @@ admin.site.register(PartieSujet)
 admin.site.register(Question)
 admin.site.register(Corriger)
 admin.site.register(FaireSujet)
+admin.site.register(Composer)
+admin.site.register(Proposer)
+

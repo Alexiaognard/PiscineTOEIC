@@ -2,7 +2,24 @@
 
 {% block content %}
 
+<style>
+table-striped{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+</style>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'stats' %}">Statistiques</a></li>
+    <li class="breadcrumb-item active" aria-current="page">par Sujet</li>
+  </ol>
+</nav>
 <h3> Mes sujets :</h3>
+
+
 
 {% if request.session.estEtu %}
 <table class="table table-striped">
@@ -11,6 +28,8 @@
       <th scope="col">Nom du sujet</th>
       <th scope="col">Note</th>
       <th scope="col">Voir mes réponses</th>
+      <th scope="col">Voir mes stats</th>
+
     </tr>
   </thead>
     <tbody>
@@ -20,8 +39,8 @@
     <tr>
 
 
-      <td>{{ i.nomSujet }} {{ forloop.counter0 }}</td>
-      <td>ListeNote[{{ forloop.counter0 }}]/990</td>
+      <td>{{ i.nomSujet }}</td>
+      <td>{{ i.noteSujet }}/990</td>
       <td><a href="http://127.0.0.1:8000/read/subject/{{i.numSujet}}">Mes réponses</a></td>
       <td><a href="http://127.0.0.1:8000/stats_par_sujet_etu/{{i.numSujet}}">Statistiques</a></td>
     </tr>

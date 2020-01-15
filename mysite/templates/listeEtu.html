@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<style>
+table-striped{
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+</style>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'stats' %}">Statistiques</a></li>
+    <li class="breadcrumb-item active" aria-current="page">par Elèves</li>
+  </ol>
+</nav>
+<h3> Liste des élèves  :</h3>
+
+
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Nom de l'élève</th>
+      <th scope="col">Classe </th>
+      <th scope="col">Voir ses stats</th>
+
+    </tr>
+  </thead>
+    <tbody>
+    {% for i in listeEtudiant %}
+
+
+    <tr>
+      <td>{{ i.nomSujet }}</td>
+      <td>{{ i.classeEtu.nomClasse }}   Promo: {{ i.classeEtu.promoClasse }}</td>
+      <td><a href="http://127.0.0.1:8000/stats_par_partie_etu_prof/{{i.numEtu}}">Voir ses statistiques</a></td>
+    </tr>
+
+
+    {% endfor %}
+  </tbody>
+
+</table>
+
+
+{% endblock %}
