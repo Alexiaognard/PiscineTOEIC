@@ -14,6 +14,27 @@ html {
   margin: 0 auto;
 }
 
+
+.buttonC{
+
+  border-style: solid;
+    border-color: #333;
+    width: 20px;
+  height: 20px;
+
+}
+.CompteCss{
+  width: 800px;
+  height: 200px;
+  color: rgb(16, 17, 19);
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+
+}
+
 #homepage_back{
     background-image: url("img/img2.png");
     background-repeat:no-repeat;

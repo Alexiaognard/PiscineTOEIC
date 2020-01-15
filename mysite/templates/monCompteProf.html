@@ -45,16 +45,21 @@
             </ul>
         </div>
     </nav>
-<div class="row">
+<div class="CompteCss">
 
 
-    <div class="col s12 m5">
-        <h3> {{ utilisateur.first_name }} {{utilisateur.last_name }} </h3>
-        <ul>
-            <li>Email : {{ utilisateur.email }}</li>
-            
-        </ul>
-        <a href={% url 'updateProf' %}>Modifier mon compte </a>
+
+    <div>
+        </br>
+            <h1>Mon Compte</h1>
+        </br>
+
+        <h3 style="text-align: center;"> {{ utilisateur.first_name }} {{utilisateur.last_name }} </h3>
+
+           <h3 > Email : {{ utilisateur.email }} <h3 >
+
+
+        <a class= "buttonC" href={% url 'updateProf' %}> Modifier mon compte </a>
 
     </div>
 

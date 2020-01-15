@@ -2291,6 +2291,5 @@ def listeEtu(request):
             user = User.objects.get(username=i.numEtu)
 
             listeEtudiant.append((i,user))
-            print(listeEtudiant)
 
     return render(request, 'listeEtu.html', locals())

@@ -45,19 +45,26 @@
             </ul>
         </div>
     </nav>
-<div class="row">
+    </br>
 
+<div class="CompteCss ">
+    <div >
+    <h1>Mon Compte</h1>
+    </br>
+    </br>
+        <h3 > {{ utilisateur.first_name }} {{utilisateur.last_name }} </h3>
+        </br>
 
-    <div class="col s12 m5">
-        <h3> {{ utilisateur.first_name }} {{utilisateur.last_name }} </h3>
-        <ul>
-            <li>Email : {{ utilisateur.email }}</li>
+            <h3 >Email : {{ utilisateur.email }}</h3>
+            </br>
 
-            <li>Classe : {{ user.classeEtu.nomClasse }}</li>
-            <li>Promo : {{ user.classeEtu.promoClasse }}</li>
-            
-        </ul>
-        <a href={% url 'updateEtu' %}>Modifier mon compte </a>
+            <h3>Classe : {{ user.classeEtu.nomClasse }}</h3>
+            </br>
+
+           <h3> Promo : {{ user.classeEtu.promoClasse }}</h3>
+         </br>
+
+        <a  class=buttonC href={% url 'updateEtu' %}>Modifier mon compte </a>
 
     </div>
 
