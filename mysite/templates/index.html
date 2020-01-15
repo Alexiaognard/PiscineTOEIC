@@ -42,7 +42,7 @@
                             <a class="nav-link" href="{% url 'dashboardEtu' %}">Mon Compte</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Faire un sujet TOEIC</a>
+                            <a class="nav-link" href="{% url 'create_subject_etu' %}">Faire un sujet TOEIC</a>
                         </li>
 
                     {% else %}
@@ -55,7 +55,7 @@
                     {% endif %}
 
                     <li class = "nav-item dropdown" >
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{% url 'stats' %}">
                             Statistiques
                         </a>
                     
