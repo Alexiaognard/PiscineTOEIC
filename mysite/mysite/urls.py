@@ -47,6 +47,7 @@ urlpatterns = [
     path('liste_sujet_prof', views.liste_sujet_prof, name='liste_sujet_prof'),
     path('listeClasse', views.listeclasse, name='listeClasse'),
     path('statsClasses/<int:numClasse>', views.stats_classe_prof, name='statsClasses'),
+    path('stats_par_partie_etu', views.stats_par_partie_etu, name='stats_par_partie_etu'),
 
    
 ]
