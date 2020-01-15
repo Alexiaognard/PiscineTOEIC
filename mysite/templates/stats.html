@@ -12,7 +12,7 @@
                     <div class="card-body">
                       <h5 class="card-title">Stats par sujet</h5>
                         {% if request.session.estEtu %}
-                          <a href="{% url 'stats_par_sujet_etu' %}" class="btn btn-info">Voir mes stats</a>
+                          <a href="{% url 'voir_sujet' %}" class="btn btn-info">Voir mes stats</a>
                         {% else %}
                       <a href="{% url 'liste_sujet_prof' %}" class="btn btn-info">Voir mes stats</a>
                         {% endif %}
