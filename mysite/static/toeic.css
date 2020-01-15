@@ -3,6 +3,21 @@ html {
     min-height: 100%;
 }
 
+.cardi{
+  width: 200px;
+  height: 200px;
+  color: rgb(25, 86, 216);
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#homepage_back{
+  background-image: url("img/homepage_polytec.jpg");
+}
+
 body {
   overflow-x : hidden;
   margin : 0 0 50px;
@@ -65,7 +80,6 @@ body {
   text-align: center;
   background: #D0E4F5;
 }
-
 
 .table-striped{
   border-collapse: collapse;

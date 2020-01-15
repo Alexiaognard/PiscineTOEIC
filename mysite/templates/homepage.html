@@ -4,83 +4,61 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">Mon Compte</h5>
-                      {% if request.session.estEtu %}
-                        <a href="{% url 'dashboardEtu' %}" class="btn btn-info">Voir mon compte</a>
-                      {% else %}
-                    <a href="{% url 'dashboardProf' %}" class="btn btn-info">Voir mon compte</a>
-                      {% endif %}
+<div id="homepage_back">
+  </br>
+    <div classe = "container">  
+      <div class="row">
+            <div class="col-sm-6">
+                <div class="card cardi" style="width: 24rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Mon Compte</h5>
+                        {% if request.session.estEtu %}
+                          <a href="{% url 'dashboardEtu' %}" class="btn btn-info">Voir mon compte</a>
+                        {% else %}
+                      <a href="{% url 'dashboardProf' %}" class="btn btn-info">Voir mon compte</a>
+                        {% endif %}
                     </div>
-
                 </div>
             </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
+            <div class="col-sm-6">
+                <div class="card cardi" style="width: 24rem;">
+                    <div class="card-body">
+                        {% if request.session.estEtu %}
+                        <h5 class="card-title">Faire un sujet</h5>
+                          <a href="{% url 'create_subject_etu' %}" class="btn btn-info">Faire un sujet</a>
+                        {% else %}
+                        <h5 class="card-title">Créer un sujet</h5>
+                          <a href="{% url 'create_subject_prof' %}" class="btn btn-info">Créer un sujet</a>
+                        {% endif %}
+                  </div>
+                </div>
+            </div>
+      </div>
+      </br>   
+      <div class="row">
+            <div class="col-sm-6">
+                <div class="card cardi" style="width: 24rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Statistiques</h5>
                       {% if request.session.estEtu %}
-                      <h5 class="card-title">Faire un sujet</h5>
-                        <a href="{% url 'create_subject_etu' %}" class="btn btn-info">Faire un sujet</a>
+                      <a href="{% url 'stats_par_sujet_etu' %}" class="btn btn-info">Voir les stats</a>
                       {% else %}
-                      <h5 class="card-title">Créer un sujet</h5>
-                        <a href="{% url 'create_subject_prof' %}" class="btn btn-info">Créer un sujet</a>
+                      <a href="#" class="btn btn-info">Voir les stats</a>
                       {% endif %}
-                 </div>
-
+                  </div>
                 </div>
             </div>
-
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">Statistiques</h5>
-                    {% if request.session.estEtu %}
-                    <a href="{% url 'stats_par_sujet_etu' %}" class="btn btn-info">Voir les stats</a>
-                    {% else %}
-                    <a href="#" class="btn btn-info">Voir les stats</a>
-                    {% endif %}
-                 </div>
-
+            <div class="col-sm-6">
+                <div class="card cardi card_deck_c" style="width: 24rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Mes Sujets</h5>
+                      <a href="{% url 'voir_sujet' %}" class="btn btn-info">Voir mes sujets</a>
+                  </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title">Mes Sujets</h5>
-                    <a href="{% url 'voir_sujet' %}" class="btn btn-info">Voir mes sujets</a>
-                 </div>
-
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    {% else %}
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Vous êtes un Etudiant</h5>
-                <a href="{% url 'login' %}" class="btn btn-primary">Vous connecter</a>
-                  <a href="{% url 'signupEtu' %}" class="btn btn-primary">Vous inscrire</a>
-
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Vous êtes un Enseignant</h5>
-                <a href="{% url 'login' %}" class="btn btn-primary">Vous connecter</a>
-                  <a href="{% url 'signupProf' %}" class="btn btn-primary">Vous inscrire</a>
-
-              </div>
-            </div>
-          </div>
-        </div>
+</div> 
 {% endif %}
 
 {% endblock %}
