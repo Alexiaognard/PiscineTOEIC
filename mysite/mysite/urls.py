@@ -49,7 +49,7 @@ urlpatterns = [
     path('statsClasses/<int:numClasse>', views.stats_classe_prof, name='statsClasses'),
     path('stats_par_partie_etu', views.stats_par_partie_etu, name='stats_par_partie_etu'),
     path('stats', views.stats, name='stats'),
-    path('stats_par_partie_etu_prof/<int:idEtu>', views.stats_par_partie_etu_prof, name='stats_par_partie_etu_prof'),
+    path('stats_par_partie_etu_prof/<str:idEtu>', views.stats_par_partie_etu_prof, name='stats_par_partie_etu_prof'),
     path('listeEtuClasse/<int:numClasse>', views.listeEtuClasse, name='listeEtuClasse'),
    
 ]

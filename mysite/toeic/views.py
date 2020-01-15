@@ -2192,10 +2192,11 @@ def stats_par_partie_etu_prof(request,idEtu):
     if  request.session['estEtu']:
         return render(request, 'error404.html')
     else:
+        user = User.objects.get(username= idEtu)
+        etu = Etudiant.objects.get(numEtu= user.id)
 
-        
         listeSujet = []
-        f = FaireSujet.objects.filter(numEtu = idEtu)
+        f = FaireSujet.objects.filter(numEtu = etu)
 
         for i in f :
             listeSujet.append(i.numSujet)
