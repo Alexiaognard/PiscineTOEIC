@@ -1820,7 +1820,12 @@ def stats_par_sujet_prof(request,idSujet):
         cpt780_820 = 0
         cpt820_900 = 0
         cpt900_990 = 0
-        for l in corr : 
+        pourcent0_600 = 0
+        pourcent600_780 = 0
+        pourcent780_820 = 0
+        pourcent820_900 = 0
+        pourcent900_990 = 0
+        for l in corr :  
             partieReading = PartieSujet.objects.filter(numSujet= l.numSujetEtu,nomPartie = "Reading")
             partieListening = PartieSujet.objects.filter(numSujet= l.numSujetEtu,nomPartie = "Listening")
             
@@ -1847,20 +1852,22 @@ def stats_par_sujet_prof(request,idSujet):
             elif listeFinale[k] >= 900:
                 cpt900_990+=1      
 
-        pourcent0_600 = (cpt0_600/len(listeFinale)) * 100
-        pourcent600_780 = (cpt600_780/len(listeFinale)) * 100
-        pourcent780_820 = (cpt780_820/len(listeFinale)) * 100
-        pourcent820_900 = (cpt820_900/len(listeFinale)) * 100
-        pourcent900_990 = (cpt900_990/len(listeFinale)) * 100
+        if len(listeFinale)>0 :
+                pourcent0_600 = (cpt0_600/len(listeFinale)) * 100
+                pourcent600_780 = (cpt600_780/len(listeFinale)) * 100
+                pourcent780_820 = (cpt780_820/len(listeFinale)) * 100
+                pourcent820_900 = (cpt820_900/len(listeFinale)) * 100
+                pourcent900_990 = (cpt900_990/len(listeFinale)) * 100
+                moy = numpy.mean(listeFinale)
+                moyenne = numpy.around(moy, decimals=2)
+                minimum = numpy.amin(listeFinale)
+                maximum = numpy.amax(listeFinale)
         
 
 
         pourcentToeic = pourcent780_820 +pourcent820_900 + pourcent900_990
         pourcentPasToeic = 100 - pourcentToeic
-        moy = numpy.mean(listeFinale)
-        moyenne = numpy.around(moy, decimals=2)
-        minimum = numpy.amin(listeFinale)
-        maximum = numpy.amax(listeFinale)
+        
 
 
         return render(request, 'stats_par_sujet_prof.html', locals())
