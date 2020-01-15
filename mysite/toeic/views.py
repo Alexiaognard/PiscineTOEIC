@@ -1782,24 +1782,63 @@ def delete_etu(request):
     return render(request, 'deleteEtu.html')
 
 @login_required
-def stats_par_sujet_etu(request):
+def stats_par_sujet_etu(request,idSujet):
     if not request.session['estEtu']:
         return render(request, 'error404.html')
     else:
-        userEtu = Etudiant.objects.get(numEtu=request.user.id)
-        parties = []
-        notes = []
-        liste = FaireSujet.objects.filter(numEtu=userEtu)
-        listeNumSujets = []
-        for b in liste:
-            listeNumSujets.append(b.numSujet)
-#listeNumSujets contient tous les numéros de sujets fait par l'eleve
-        for i in listeNumSujets :
-            partie = PartieSujet.objects.filter(numSujet= i)
-            # partie contient les parties sujets 
-            for j in partie : 
-                parties.append(j)
-# parties contient toutes les parties d'un élève 
+        corr = FaireSujet.objects.filter(numSujet = idSujet)
+        nomS = Sujet.objects.get(numSujet= idSujet).nomSujet
+        listeReading = []
+        listeListening = []
+        listeFinale = []
+        cpt0_600 = 0
+        cpt600_780 =0
+        cpt780_820 = 0
+        cpt820_900 = 0
+        cpt900_990 = 0
+        for l in corr : 
+            partieReading = PartieSujet.objects.filter(numSujet= l.numSujet,nomPartie = "Reading")
+            partieListening = PartieSujet.objects.filter(numSujet= l.numSujet,nomPartie = "Listening")
+            
+
+            for i in partieReading :
+                listeReading.append(i.notePartie)
+                
+
+            for j in partieListening :
+                listeListening.append(j.notePartie)
+                
+            for k in range(0,len(listeListening)):
+                listeFinale.append(listeListening[k] + listeReading[k])
+
+        for k in range(0, len(listeFinale)):
+            if listeFinale[k] <600 :
+                cpt0_600+=1
+            elif 600 <= listeFinale[k] < 780:
+                cpt600_780+=1
+            elif 780 <= listeFinale[k] < 820:
+                cpt780_820+=1
+            elif 820 <= listeFinale[k] < 900:
+                cpt820_900+=1
+            elif listeFinale[k] >= 900:
+                cpt900_990+=1      
+
+        pourcent0_600 = (cpt0_600/len(listeFinale)) * 100
+        pourcent600_780 = (cpt600_780/len(listeFinale)) * 100
+        pourcent780_820 = (cpt780_820/len(listeFinale)) * 100
+        pourcent820_900 = (cpt820_900/len(listeFinale)) * 100
+        pourcent900_990 = (cpt900_990/len(listeFinale)) * 100
+        
+
+
+        pourcentToeic = pourcent780_820 +pourcent820_900 + pourcent900_990
+        pourcentPasToeic = 100 - pourcentToeic
+        moy = numpy.mean(listeFinale)
+        moyenne = numpy.around(moy, decimals=2)
+        minimum = numpy.amin(listeFinale)
+        maximum = numpy.amax(listeFinale)
+
+
         return render(request, 'stats_par_sujet_etu.html', locals())
 
 

@@ -1,30 +1,171 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
-    <li class="breadcrumb-item"><a href="#">Statistiques</a></li>
-    <li class="breadcrumb-item"><a href="#">par Sujet</a></li>
-    <li class="breadcrumb-item active" aria-current="page">{{i.numSujet.nomSujet}}}</li>
-  </ol>
-</nav>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 <div class="recapitulation">
     <div class="collection with-header">
     	
- 
-        {% for i in parties %}
-           
-        	<ul>
-        		<li>{{i.numSujet.nomSujet}}</li>
-        		<li>{{i.nomPartie}} : {{i.notePartie}}</li>
-       
-             </ul>
+ <table class="table table-striped">
 
-		
-		{% endfor %}
+  <thead>
+    <tr>
+        <th scope="row"></th>
+      <th scope="col">Sujet : {{nomS }}</th>
+    </tr>
+  </thead>
+    <tbody>
 
-        
+
+    <tr>
+        <th scope="row">Note Maximale</th>
+        <td>{{maximum}}/990</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Note Minimum</th>
+        <td>{{minimum}}/990</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Moyenne</th>
+        <td>{{moyenne}}/990</td>
+
+    </tr>
+
+  </tbody>
+
+
+</table>
+ <figure class="highcharts-figure">
+    <div id="containerP"></div>
+    <div id="containerBar"></div>
+</figure>
+<script>
+document.addEventListener('DOMContentLoaded', function(){    
+var chart = Highcharts.chart('containerBar', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Taux de réussite au TOEIC'
+    },
+    
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: ""
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.1f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Sujet",
+            colorByPoint: true,
+            data: [
+                {
+                    name: "Taux d'échec",
+                    y: {{pourcentPasToeic}},
+                },
+                {
+                    name: "Taux de réussite",
+                    y: {{pourcentToeic}},
+                },
+                
+            ]
+        }
+    ],
+})
+// Radialize the colors
+Highcharts.setOptions({
+    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: {
+                cx: 0.5,
+                cy: 0.3,
+                r: 0.7
+            },
+            stops: [
+                [0, color],
+                [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    })
+});
+
+// Build the chart
+var pie = Highcharts.chart('containerP', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: 'Repartition de notes'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                connectorColor: 'silver'
+            }
+        }
+    },
+    series: [{
+        name: 'Note',
+        data: [
+            { name: '0 - 600', y: {{pourcent0_600}} },
+            { name: '600 - 780', y: {{pourcent600_780}} },
+            { name: '780 - 820', y: {{pourcent780_820}} },
+            { name: '820 - 900', y: {{pourcent820_900}} },
+            { name: '900 - 990', y: {{pourcent900_990}} },
+        ]
+    }]
+});
+});
+ </script>        
     </div>
 </div>
 

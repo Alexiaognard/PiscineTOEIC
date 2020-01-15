@@ -13,7 +13,7 @@
           {{ field }}
           </div>
       {% endfor %}
-        {% if not request.session.estEtu %}
+        {% if request.session.estEtu %}
         <button class="btn btn-primary" type="submit">Faire sujet</button>
         {% else %}
         <button class="btn btn-primary" type="submit">Créer sujet</button>
