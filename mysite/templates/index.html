@@ -61,7 +61,7 @@
                     
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                           {% if not request.session.estEtu %}
-                            <a class="dropdown-item" href="#">Par Etudiant</a>
+                            <a class="dropdown-item" href="{% url 'listeClasse' %}">Par Etudiant</a>
                             <a class="dropdown-item" href="{% url 'listeClasse' %}">Par classe</a>
                             <a class="dropdown-item" href = "{% url 'stats_par_partie_prof' %}">Par partie</a>
                             <a class="dropdown-item" href="{% url 'liste_sujet_prof' %}">Par sujet</a>
