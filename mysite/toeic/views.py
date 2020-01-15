@@ -127,6 +127,10 @@ def monCompte_prof(request):
         user = Professeur.objects.get(numProf=request.user.id)
         return render(request, 'monCompteProf.html', locals())
 
+#-------------- Vue de la page d'accueil stats -----------------
+def stats(request):
+    return render(request, 'stats.html')
+
 #---------------- Vue création de sujet de TOEIC ---------------------
 @login_required
 def create_subject_prof(request):
@@ -1528,7 +1532,7 @@ def make_subject_etu(request, idSujet):
                 Q200.save()
 
 
-                return read_subject(request, sub.numSujet)
+                return corriger_sujet(request,sub.numSujet)
         else:
 
             form = RemplirSujetForm()

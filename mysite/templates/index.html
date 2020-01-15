@@ -18,12 +18,9 @@
 
     <ul class="nav justify-content-center">
       <li class="nav-item">
-        <a class="active" href="{% url 'homepage' %}">TOEIC Website</a>
+        <a class="active text-white" >TOEIC Website</a>
       </li>
-        {% if user.is_authenticated %}
-            <li><a href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Déconnexion</a></li>
 
-        {% endif %}
     </ul>
 
 
@@ -74,6 +71,9 @@
                           {% endif %}
                         </div>
                     </li>
+                <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Déconnexion</a>
+                </li>
             </ul>
         </div>        
     </nav>
@@ -101,7 +101,7 @@
 <script src="{% static 'toeic.js' %}"></script>
 
 
- <footer class="footer" style="margin-bottom: 0px;">
+ <footer class="footer text-white" style="margin-bottom: 0px;">
 
 
               <span><p> <i class="material-icons">copyright</i> Copyright 2020</p></span>

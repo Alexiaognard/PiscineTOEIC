@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
 
 {% block content %}
+<<<<<<< Updated upstream
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/drilldown.js"></script>
@@ -8,6 +9,16 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+=======
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'homepage' %}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'stats' %}">Statistiques</a></li>
+    <li class="breadcrumb-item"><a href="#">par Sujet</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{i.numSujet.nomSujet}}}</li>
+  </ol>
+</nav>
+>>>>>>> Stashed changes
 <div class="recapitulation">
     <div class="collection with-header">
     	

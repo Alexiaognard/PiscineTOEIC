@@ -4,14 +4,41 @@
 
 <div class="recapitulation">
     <div class="collection with-header">
-        <h3> Nom Sujet : {{subEtu.nomSujet}}</h3>
-        <ul>
-            <li>Note Sujet : {{note}}/990</li>
-            <li>Bonne réponse Listening : {{listening}}/100</li>
-            <li>Bonne réponse Reading : {{reading}}/100</li>
+
+        <table class="table table-striped">
+
+  <thead>
+    <tr>
+        <th scope="row"></th>
+      <th scope="col">Nom Sujet : {{subEtu.nomSujet}}</th>
+    </tr>
+  </thead>
+    <tbody>
 
 
-        </ul>
+    <tr>
+        <th scope="row">Note Sujet :</th>
+        <td>{{note}}/990</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Nombre bonnes réponses Listening :</th>
+        <td>{{listening}}/100</td>
+
+    </tr>
+    <tr>
+        <th scope="row">Nombre bonnes réponses Reading</th>
+        <td>{{reading}}/100</td>
+
+    </tr>
+
+
+
+
+  </tbody>
+
+
+</table>
     </div>
 </div>
 
