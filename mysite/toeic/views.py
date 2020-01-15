@@ -1908,9 +1908,9 @@ def stats_par_partie_prof(request):
         for j in range(0, len(notesReading)):
             if notesReading[j] <200 :
                 Rcpt0_200+=1
-            elif 200 <= notesReading[j] < 350:
+            elif notesReading[j] < 350:
                 Rcpt200_350+=1
-            elif 350 <= notesReading[j] < 495:
+            else:
                 Rcpt350_495+=1
            
 
@@ -1920,7 +1920,7 @@ def stats_par_partie_prof(request):
                 Lcpt0_200+=1
             elif 200 <= notesListening[j] < 350:
                 Lcpt200_350+=1
-            elif 300 <= notesListening[j] < 495:
+            else:
                 Lcpt350_495+=1
 
         if len(notesListening)>0 :
