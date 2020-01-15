@@ -32,13 +32,13 @@ table-striped{
     </tr>
   </thead>
     <tbody>
-    {% for i in listeEtudiant %}
+    {% for x,y in listeEtudiant %}
 
 
     <tr>
-      <td>{{ i.nomSujet }}</td>
-      <td>{{ i.classeEtu.nomClasse }}   Promo: {{ i.classeEtu.promoClasse }}</td>
-      <td><a href="http://127.0.0.1:8000/stats_par_partie_etu_prof/{{i.numEtu}}">Voir ses statistiques</a></td>
+      <td>{{y.first_name}} {{y.last_name}}</td>
+      <td>{{ x.classeEtu.nomClasse }}   Promo: {{ x.classeEtu.promoClasse }}</td>
+      <td><a href="http://127.0.0.1:8000/stats_par_partie_etu_prof/{{x.numEtu}}">Voir ses statistiques</a></td>
     </tr>
 
 
