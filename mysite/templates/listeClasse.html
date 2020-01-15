@@ -22,6 +22,7 @@
     <tr>
       <th scope="col">Nom de la Classe : </th>
         <th scope="col">Voir les Stats </th>
+        <th scope="col">Voir les Etudiants </th>
     </tr>
   </thead>
     <tbody>
@@ -29,8 +30,9 @@
 
     <tr>
 
-        <td>{{ i.nomClasse }}</td>
+        <td>{{ i.nomClasse }} {{i.numClasse}}</td>
         <td><a href="http://127.0.0.1:8000/statsClasses/{{i.numClasse}}">Voir les statistiques</a></td>
+        <td><a href="http://127.0.0.1:8000/stats_par_partie_etu_prof/{{i.numClasse}}">Liste Etudiants</a></td>
 
     </tr>
 
