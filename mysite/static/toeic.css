@@ -15,8 +15,8 @@ html {
 }
 
 #homepage_back{
-  background-image: url("img/homepage_polytec.jpg");
-}
+    background-image: url("img/homepage_polytec.jpg");
+  }
 
 body {
   overflow-x : hidden;
